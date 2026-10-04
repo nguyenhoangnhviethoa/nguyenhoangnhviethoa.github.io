@@ -30,7 +30,7 @@ window.GAMES = [
     "id": "the-witcher-3-remastered",
     "title": "The Witcher 3: Wild Hunt - Remastered",
     "subtitle": "",
-    "cover": "",
+    "cover": "assets/covers/the-witcher-3-remastered.jpg",
     "colors": ["#1b2a4a", "#e63946"],
     "genres": ["Nhập vai", "Hành động", "Thế giới mở"],
     "platform": "Steam / Epic / GOG",
@@ -64,6 +64,6 @@ window.GAMES = [
     "changelog": [
       { "version": "1.0", "date": "2026-10-04", "notes": "Phát hành." }
     ],
-    "screenshots": ["assets/shots/the-witcher-3-1.jpg"]
+    "screenshots": ["assets/shots/the-witcher-3-1.jpg", "assets/shots/the-witcher-3-2.jpg"]
   }
 ];

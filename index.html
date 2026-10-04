@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="home">
   <header class="topbar">
     <div class="wrap topbar-in">
       <a class="brand" href="#">
@@ -24,7 +24,7 @@
         <a href="#games">Game</a>
         <a href="#guide">Hướng dẫn</a>
         <a href="#faq">Hỏi đáp</a>
-        <a id="navGithub" class="btn btn-ghost btn-sm" target="_blank" rel="noopener" hidden>GitHub</a>
+        <a id="navGithub" class="btn btn-ghost btn-sm js-github" target="_blank" rel="noopener" hidden>GitHub</a>
       </nav>
     </div>
   </header>
@@ -97,11 +97,6 @@
       <div class="links" id="contactLinks"></div>
     </div>
   </footer>
-
-  <!-- Chi tiết game -->
-  <dialog id="modal" aria-labelledby="mTitle">
-    <div class="m-inner" id="mBody"></div>
-  </dialog>
 
   <div class="toast" id="toast" role="status"></div>
 

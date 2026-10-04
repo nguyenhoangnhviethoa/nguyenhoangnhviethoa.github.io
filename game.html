@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Việt hóa game — NH Việt Hóa</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e63946'/%3E%3Cpath d='M32 12l5.9 12.1 13.3 1.9-9.6 9.4 2.3 13.2L32 42.4l-11.9 6.2 2.3-13.2-9.6-9.4 13.3-1.9z' fill='%23ffd166'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="game">
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true">★</span>
+        <span class="brand-name" data-site="name">NH Việt Hóa</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="back">← Tất cả game</a>
+        <a class="btn btn-ghost btn-sm js-github" target="_blank" rel="noopener" hidden>GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="game"></main>
+
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <div>
+        <b data-site="name"></b> · Dịch bởi <span data-site="author"></span>
+        <p class="muted">Bản quyền game thuộc về nhà phát triển. Web chỉ chia sẻ bản dịch phi lợi nhuận.</p>
+      </div>
+      <div class="links" id="contactLinks"></div>
+    </div>
+  </footer>
+
+  <!-- Xem ảnh cỡ lớn -->
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Xem ảnh">
+    <div class="lb-stage"><img id="lbImg" alt=""></div>
+    <button class="lb-btn lb-close" id="lbClose" aria-label="Đóng">×</button>
+    <button class="lb-btn lb-nav lb-prev" id="lbPrev" aria-label="Ảnh trước">‹</button>
+    <button class="lb-btn lb-nav lb-next" id="lbNext" aria-label="Ảnh sau">›</button>
+    <div class="lb-count" id="lbCount"></div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="games.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
