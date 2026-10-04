@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /them-game.html
+
+Sitemap: https://nguyenhoangnhviethoa.github.io/sitemap.xml

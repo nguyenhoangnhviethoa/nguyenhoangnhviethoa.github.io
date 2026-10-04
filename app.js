@@ -2,6 +2,10 @@
   const SITE = window.SITE || {};
   const GAMES = (window.GAMES || []).map(g => ({ ...g, _dl: null, _gh: null }));
   const PAGE = document.body.dataset.page || "home";
+  // ROOT: trang tĩnh trong thư mục game/ đặt data-root="../" để đường dẫn assets/ vẫn đúng
+  const ROOT = document.body.dataset.root || "";
+  const MIN_DL = 50;            // chỉ hiện "lượt tải" khi đã đủ lớn (số nhỏ trông kém tin cậy)
+  const MIN_GAMES_STATS = 3;    // chỉ hiện ô thống kê khi đã có từng này game
   const STATUS = {
     done: { label: "Hoàn thành", cls: "done" },
     beta: { label: "Thử nghiệm", cls: "beta" },
@@ -14,7 +18,10 @@
   const fmtNum = n => (n ?? 0).toLocaleString("vi-VN");
   const fmtSize = b => b > 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1024)) + " KB";
   const hasVer = v => v && v !== "—";
-  const gameUrl = g => "game.html?id=" + encodeURIComponent(g.id);
+  const asset = p => !p || /^(https?:|data:|\/)/.test(p) ? p : ROOT + p;
+  // Trang tĩnh game/<id>.html (do build.js sinh, có og:image để chia sẻ Facebook/Zalo); game.html?id= vẫn chạy cho link cũ
+  const gameUrl = g => ROOT + "game/" + encodeURIComponent(g.id) + ".html";
+  const showDl = n => n >= MIN_DL;
 
   /* ---------- Thông tin chung (header, footer) ---------- */
   document.querySelectorAll("[data-site]").forEach(el => { el.textContent = SITE[el.dataset.site] || el.textContent; });
@@ -24,7 +31,7 @@
   const cl = $("#contactLinks"); if (cl) cl.innerHTML = contacts.join("");
 
   function coverStyle(g) {
-    if (g.cover) return `background-image:url('${esc(g.cover)}')`;
+    if (g.cover) return `background-image:url('${esc(asset(g.cover))}')`;
     const [a, b] = g.colors && g.colors.length ? g.colors : ["#222a3d", "#e63946"];
     return `background-image:linear-gradient(135deg, ${a} 0%, ${a} 35%, ${b} 120%)`;
   }
@@ -45,7 +52,7 @@
       .filter(([, v]) => v).map(([k, v]) => `<span>${k}</span><b>${esc(v)}</b>`).join("");
     return `<div class="donate-card ${compact ? "compact" : ""}">
       ${compact ? `<div><b class="donate-title">♥ Ủng hộ người dịch</b><p class="muted small">Bản Việt hóa miễn phí. Thấy hay thì mời mình ly cà phê nhé!</p></div>` : ""}
-      ${D.qr ? `<img class="donate-qr" src="${esc(D.qr)}" alt="Mã QR ủng hộ${D.bank ? " – " + esc(D.bank) : ""}" loading="lazy">` : ""}
+      ${D.qr ? `<img class="donate-qr" src="${esc(asset(D.qr))}" alt="Mã QR ủng hộ${D.bank ? " – " + esc(D.bank) : ""}" loading="lazy">` : ""}
       <div class="donate-info">
         ${rows ? `<div class="donate-rows">${rows}</div>` : ""}
         ${D.account ? `<button class="btn btn-ghost btn-sm" data-copy="${esc(D.account)}">Sao chép số tài khoản</button>` : ""}
@@ -142,6 +149,15 @@
   const onScroll = () => tb && tb.classList.toggle("scrolled", scrollY > 20);
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
+  /* ---------- Menu trên điện thoại ---------- */
+  const navToggle = $("#navToggle"), nav = $("#nav");
+  if (navToggle && nav) {
+    const setOpen = o => { nav.classList.toggle("open", o); navToggle.setAttribute("aria-expanded", o); navToggle.textContent = o ? "✕" : "☰"; };
+    navToggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
+    nav.addEventListener("click", e => { if (e.target.closest("a")) setOpen(false); });
+    document.addEventListener("click", e => { if (!e.target.closest(".topbar")) setOpen(false); });
+  }
+
   if (PAGE === "game") gamePage(); else homePage();
 
   /* =========================================================
@@ -150,7 +166,7 @@
   function homePage() {
     // link cũ dạng #/game/id → chuyển sang trang riêng
     const old = location.hash.match(/^#\/game\/(.+)$/);
-    if (old) { location.replace("game.html?id=" + old[1]); return; }
+    if (old) { location.replace("game/" + old[1] + ".html"); return; }
 
     if (SITE.name) document.title = `${SITE.name} — Game Việt hóa miễn phí`;
     if (hasDonate) {
@@ -161,11 +177,15 @@
     $("#sampleNote").hidden = !GAMES.some(g => g.sample);
 
     function renderStats() {
+      const box = $("#stats");
+      // Mới ít game thì ô thống kê trông trống → ẩn đi, chỉ hiện khi đủ MIN_GAMES_STATS game
+      if (GAMES.length < MIN_GAMES_STATS) { box.hidden = true; box.innerHTML = ""; return; }
+      box.hidden = false;
       const done = GAMES.filter(g => g.status === "done").length;
       const dl = GAMES.reduce((s, g) => s + (g._dl || 0), 0);
       const items = [[GAMES.length, "Game"], [done, "Đã hoàn thành"], [GAMES.length - done, "Đang làm / Beta"]];
-      if (dl) items.push([fmtNum(dl), "Lượt tải"]);
-      $("#stats").innerHTML = items.map(([n, l]) => `<div class="stat"><b data-count="${String(n).replace(/\D/g, "")}">${n}</b><span>${l}</span></div>`).join("");
+      if (showDl(dl)) items.push([fmtNum(dl), "Lượt tải"]);
+      box.innerHTML = items.map(([n, l]) => `<div class="stat"><b data-count="${String(n).replace(/\D/g, "")}">${n}</b><span>${l}</span></div>`).join("");
       countUp();
     }
 
@@ -214,7 +234,7 @@
             ${g.subtitle ? `<div class="card-sub">${esc(g.subtitle)}</div>` : ""}
             <div class="tags">${(g.genres || []).slice(0, 3).map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
             <div class="bar" title="Tiến độ ${g.progress || 0}%"><i style="width:${Math.min(100, g.progress || 0)}%"></i></div>
-            <div class="meta"><span>${g.progress || 0}%${hasVer(g.patchVersion) ? " · v" + esc(g.patchVersion) : ""}</span><span>${g._dl ? fmtNum(g._dl) + " lượt tải" : fmtDate(g.updated)}</span></div>
+            <div class="meta"><span>${g.progress || 0}%${hasVer(g.patchVersion) ? " · v" + esc(g.patchVersion) : ""}</span><span>${showDl(g._dl) ? fmtNum(g._dl) + " lượt tải" : fmtDate(g.updated)}</span></div>
           </div>
         </a>`;
       }).join("");
@@ -225,7 +245,7 @@
         || GAMES[0];
       const box = $("#featured");
       if (!pick) { box.hidden = true; return; }
-      const img = pick.hero || (pick.screenshots || [])[0] || pick.cover;
+      const img = asset(pick.hero || (pick.screenshots || [])[0] || pick.cover);
       if (img) $("#heroBg").style.backgroundImage = `url('${esc(img)}')`;
       const st = STATUS[pick.status] || STATUS.wip;
       box.innerHTML = `<a class="feat" href="${gameUrl(pick)}">
@@ -237,7 +257,7 @@
           <div class="feat-meta">
             <span class="pill ${st.cls}">● ${st.label}</span>
             ${hasVer(pick.patchVersion) ? `<span class="pill">Việt hóa v${esc(pick.patchVersion)}</span>` : ""}
-            ${pick._dl ? `<span class="pill">⬇ ${fmtNum(pick._dl)} lượt tải</span>` : ""}
+            ${showDl(pick._dl) ? `<span class="pill">⬇ ${fmtNum(pick._dl)} lượt tải</span>` : ""}
           </div>
           <span class="feat-go">Xem chi tiết & tải về →</span>
         </div>
@@ -252,24 +272,30 @@
      TRANG CHI TIẾT GAME  (game.html?id=...)
      ========================================================= */
   function gamePage() {
-    const id = new URLSearchParams(location.search).get("id");
+    // Trang tĩnh game/<id>.html ghi id vào data-id; game.html?id=… (link cũ) đọc từ query
+    const id = document.body.dataset.id || new URLSearchParams(location.search).get("id");
     const g = GAMES.find(x => x.id === id);
     const root = $("#game");
     if (!g) {
-      root.innerHTML = `<div class="wrap notfound"><h1>Không tìm thấy game</h1><p class="muted">Link có thể đã cũ hoặc game đã đổi tên.</p><a class="btn" href="index.html">Xem tất cả game</a></div>`;
+      root.innerHTML = `<div class="wrap notfound"><h1>Không tìm thấy game</h1><p class="muted">Link có thể đã cũ hoặc game đã đổi tên.</p><a class="btn" href="${ROOT}index.html">Xem tất cả game</a></div>`;
       return;
     }
-    document.title = `${g.title} Việt hóa — ${SITE.name || ""}`;
-    const shots = g.screenshots || [];
-    const heroImg = g.hero || shots[0] || g.cover || "";
+    document.title = `Việt hóa ${g.title} — ${SITE.name || ""}`;
+    const shots = (g.screenshots || []).map(asset);
+    const heroImg = asset(g.hero || (g.screenshots || [])[0] || g.cover || "");
+    // Link dự phòng khi GitHub API lỗi / bị giới hạn 60 lượt/giờ/IP: vẫn phải có nút tải
+    const fallbackDl = g.github && g.github.repo
+      ? [{ label: "Tải về (trang GitHub Releases)", url: `https://github.com/${g.github.repo}/releases/latest`, note: "Mở trang phát hành trên GitHub, bấm vào file .zip để tải" }]
+      : [];
 
     function render() {
       const st = STATUS[g.status] || STATUS.wip;
       const gh = g._gh;
       const downloads = gh && gh.assets.length
-        ? gh.assets.map(a => ({ label: gh.assets.length > 1 ? a.name : "Tải về máy", url: a.url, note: `${gh.assets.length > 1 ? "" : a.name + " · "}${fmtSize(a.size)} · ${fmtNum(a.count)} lượt tải` }))
-        : (g.downloads || []);
+        ? gh.assets.map(a => ({ label: gh.assets.length > 1 ? a.name : "Tải về máy", url: a.url, note: `${gh.assets.length > 1 ? "" : a.name + " · "}${fmtSize(a.size)}${showDl(a.count) ? " · " + fmtNum(a.count) + " lượt tải" : ""}` }))
+        : ((g.downloads && g.downloads.length) ? g.downloads : fallbackDl);
       const main = downloads[0];
+      const checksum = g.checksum || (gh && gh.assets[0] && (g.checksums || {})[gh.assets[0].name]);
       const row = (k, v) => v ? `<div class="row"><span>${k}</span><b>${esc(v)}</b></div>` : "";
 
       root.innerHTML = `
@@ -311,7 +337,15 @@
               </div><p class="muted small">Bấm vào ảnh để xem cỡ lớn.</p></section>` : ""}
 
             ${g.install && g.install.length ? `<section class="g-sec" id="cai-dat"><h2>Hướng dẫn cài đặt</h2>
-              <ol class="steps">${g.install.map(f => `<li>${esc(f)}</li>`).join("")}</ol></section>` : ""}
+              <ol class="steps">${g.install.map(f => `<li>${esc(f)}</li>`).join("")}</ol>
+              ${g.installNotes && g.installNotes.length ? `<div class="notes">${g.installNotes.map(n => `<p>${esc(n)}</p>`).join("")}</div>` : ""}</section>` : ""}
+
+            ${checksum || g.virustotal ? `<section class="g-sec" id="an-toan"><h2>Kiểm tra an toàn</h2>
+              <p class="muted">File .exe tự làm chưa mua chứng chỉ ký số nên Windows SmartScreen sẽ cảnh báo "Windows protected your PC" — bấm <b>More info → Run anyway</b>. Để chắc file tải về đúng là file mình phát hành, bạn có thể đối chiếu mã SHA256 (PowerShell: <code>Get-FileHash ten-file.zip</code>).</p>
+              <div class="info checks">
+                ${checksum ? `<div class="row"><span>SHA256${gh && gh.assets[0] ? ` <small class="muted">(${esc(gh.assets[0].name)})</small>` : ""}</span><b class="hash">${esc(checksum)}</b></div>` : ""}
+                ${g.virustotal ? `<div class="row"><span>VirusTotal</span><b><a href="${esc(g.virustotal)}" target="_blank" rel="noopener">Xem kết quả quét</a></b></div>` : ""}
+              </div></section>` : ""}
 
             ${gh && gh.body && gh.body.replace(/\(?https?:\/\/\S+\)?/g, "").replace(/[#*_>\-\s]/g, "").length > 20 ? `<section class="g-sec"><h2>Ghi chú bản phát hành ${esc(gh.tag)}</h2><div class="g-notes">${esc(gh.body)}</div></section>` : ""}
 
@@ -330,7 +364,7 @@
               ${row("Engine", g.engine)}
               ${row("Dung lượng", gh && gh.assets[0] ? fmtSize(gh.assets[0].size) : g.size)}
               ${row("Cập nhật", fmtDate(gh ? gh.date : g.updated))}
-              ${g._dl ? row("Lượt tải", fmtNum(g._dl)) : ""}
+              ${showDl(g._dl) ? row("Lượt tải", fmtNum(g._dl)) : ""}
               <div class="dl">
                 ${downloads.length
                   ? downloads.map(d => `<a class="btn" href="${esc(d.url)}">⬇ ${esc(d.label)}</a>${d.note ? `<small>${esc(d.note)}</small>` : ""}`).join("")

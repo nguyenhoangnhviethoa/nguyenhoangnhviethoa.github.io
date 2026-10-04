@@ -5,8 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NH Việt Hóa — Game Việt hóa miễn phí</title>
   <meta name="description" content="Tải miễn phí các bản Việt hóa game PC: dịch cốt truyện, giao diện, font có dấu đầy đủ, hướng dẫn cài đặt chi tiết.">
+  <link rel="canonical" href="https://nguyenhoangnhviethoa.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NH Việt Hóa">
+  <meta property="og:url" content="https://nguyenhoangnhviethoa.github.io/">
   <meta property="og:title" content="NH Việt Hóa — Game Việt hóa miễn phí">
-  <meta property="og:description" content="Tải miễn phí các bản Việt hóa game PC.">
+  <meta property="og:description" content="Tải miễn phí các bản Việt hóa game PC: dịch cốt truyện, giao diện, font có dấu đầy đủ, hướng dẫn cài đặt chi tiết.">
+  <meta property="og:image" content="https://nguyenhoangnhviethoa.github.io/assets/og-home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e63946'/%3E%3Cpath d='M32 12l5.9 12.1 13.3 1.9-9.6 9.4 2.3 13.2L32 42.4l-11.9 6.2 2.3-13.2-9.6-9.4 13.3-1.9z' fill='%23ffd166'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +29,8 @@
         <span class="logo" aria-hidden="true">★</span>
         <span class="brand-name" data-site="name">NH Việt Hóa</span>
       </a>
-      <nav class="nav">
+      <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">☰</button>
+      <nav class="nav nav-menu" id="nav">
         <a href="#games">Game</a>
         <a href="#about">Giới thiệu</a>
         <a href="#guide">Hướng dẫn</a>
@@ -61,7 +71,7 @@
     <div class="toolbar">
       <div class="search">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-        <input id="q" type="search" placeholder="Tìm tên game, thể loại…" autocomplete="off">
+        <input id="q" type="search" placeholder="Tìm tên game, thể loại…" autocomplete="off" aria-label="Tìm game">
       </div>
       <div class="chips" id="statusChips" role="tablist"></div>
       <select id="genre" aria-label="Thể loại"></select>
