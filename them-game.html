@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thêm game — công cụ nội bộ</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin: 20px 0; }
+  .form label { display: grid; gap: 4px; font-size: 14px; color: var(--muted); }
+  .form .full { grid-column: 1 / -1; }
+  input, textarea, .form select { background: var(--bg-2); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; width: 100%; }
+  textarea { min-height: 84px; resize: vertical; }
+  pre { background: #000; border: 1px solid var(--line); border-radius: 12px; padding: 16px; overflow: auto; font-size: 13px; white-space: pre-wrap; }
+  @media (max-width: 640px) { .form { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="wrap" style="padding-top:32px;padding-bottom:60px">
+  <a href="index.html">← Về trang chính</a>
+  <h1 style="margin:12px 0 4px">Thêm game Việt hóa</h1>
+  <p class="muted">Điền thông tin → bấm <b>Sao chép</b> → dán vào trong <code>window.GAMES = [ … ]</code> của file <code>games.js</code> (thêm dấu phẩy giữa các game). Trang này không lưu gì, chỉ sinh code.</p>
+
+  <form class="form" id="f" onsubmit="return false">
+    <label>Tên game *<input name="title" required placeholder="Hollow Knight"></label>
+    <label>Tên tiếng Việt (phụ)<input name="subtitle" placeholder="Hiệp Sĩ Rỗng"></label>
+    <label>Mã (id, tự tạo nếu bỏ trống)<input name="id" placeholder="hollow-knight"></label>
+    <label>Trạng thái
+      <select name="status"><option value="done">Hoàn thành</option><option value="beta">Thử nghiệm</option><option value="wip">Đang dịch</option></select>
+    </label>
+    <label>Tiến độ (%)<input name="progress" type="number" min="0" max="100" value="100"></label>
+    <label>Ngày cập nhật<input name="updated" type="date"></label>
+    <label>Phiên bản game tương thích<input name="gameVersion" placeholder="1.5.78"></label>
+    <label>Phiên bản Việt hóa<input name="patchVersion" placeholder="1.0"></label>
+    <label>Nền tảng<input name="platform" value="Steam"></label>
+    <label>Engine<input name="engine" placeholder="Unity / Unreal / RPG Maker…"></label>
+    <label>Thể loại (cách nhau dấu phẩy)<input name="genres" placeholder="Nhập vai, Hành động"></label>
+    <label>Dung lượng file<input name="size" placeholder="15 MB"></label>
+    <label>GitHub repo (owner/repo)<input name="repo" placeholder="your-username/viet-hoa-hollow-knight"></label>
+    <label>Ảnh bìa (đường dẫn, 16:9)<input name="cover" placeholder="assets/covers/hollow-knight.jpg"></label>
+    <label>Màu ảnh bìa tự vẽ 1<input name="c1" type="color" value="#1b2a4a"></label>
+    <label>Màu ảnh bìa tự vẽ 2<input name="c2" type="color" value="#e63946"></label>
+    <label class="full">Giới thiệu bản Việt hóa<textarea name="description" placeholder="Dịch toàn bộ cốt truyện, giao diện…"></textarea></label>
+    <label class="full">Đã dịch những gì (mỗi dòng một mục)<textarea name="features" placeholder="Cốt truyện & hội thoại&#10;Giao diện"></textarea></label>
+    <label class="full">Hướng dẫn cài đặt (mỗi dòng một bước)<textarea name="install" placeholder="Tải file zip&#10;Giải nén chép đè vào thư mục game"></textarea></label>
+    <label class="full">Link tải thủ công (mỗi dòng: Tên nút | URL) — bỏ trống nếu đã có GitHub repo<textarea name="downloads" placeholder="Bản Việt hóa v1.0 | https://github.com/…/releases/latest"></textarea></label>
+    <label class="full">Ảnh trong game (mỗi dòng một đường dẫn)<textarea name="screenshots" placeholder="assets/shots/hk-1.jpg"></textarea></label>
+  </form>
+
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">
+    <button class="btn" id="copy">Sao chép code</button><span class="muted" id="msg"></span>
+  </div>
+  <pre id="out"></pre>
+</main>
+<script>
+  const f = document.getElementById("f");
+  f.updated.value = new Date().toISOString().slice(0, 10);
+  const lines = s => s.split("\n").map(x => x.trim()).filter(Boolean);
+  const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/gi, "d").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  function build() {
+    const v = Object.fromEntries(new FormData(f));
+    const g = {
+      id: v.id.trim() || slug(v.title || "game-moi"),
+      title: v.title.trim(), subtitle: v.subtitle.trim(),
+      cover: v.cover.trim(), colors: [v.c1, v.c2],
+      genres: v.genres.split(",").map(x => x.trim()).filter(Boolean),
+      platform: v.platform.trim(), engine: v.engine.trim(),
+      gameVersion: v.gameVersion.trim(), patchVersion: v.patchVersion.trim(),
+      status: v.status, progress: Number(v.progress) || 0,
+      updated: v.updated, size: v.size.trim(),
+      description: v.description.trim(),
+      features: lines(v.features), install: lines(v.install),
+      github: { repo: v.repo.trim(), tag: "latest" },
+      downloads: lines(v.downloads).map(l => { const [label, url] = l.split("|").map(x => x.trim()); return url ? { label, url } : { label: "Tải về", url: label }; }),
+      changelog: v.patchVersion.trim() ? [{ version: v.patchVersion.trim(), date: v.updated, notes: "Phát hành." }] : [],
+      screenshots: lines(v.screenshots)
+    };
+    document.getElementById("out").textContent = JSON.stringify(g, null, 2) + ",";
+  }
+  f.addEventListener("input", build); build();
+  document.getElementById("copy").onclick = () => {
+    navigator.clipboard.writeText(document.getElementById("out").textContent)
+      .then(() => document.getElementById("msg").textContent = "Đã sao chép!", () => document.getElementById("msg").textContent = "Không sao chép được — hãy bôi đen và copy tay.");
+  };
+</script>
+</body>
+</html>

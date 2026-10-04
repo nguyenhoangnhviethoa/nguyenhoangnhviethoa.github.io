@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NH Việt Hóa — Game Việt hóa miễn phí</title>
+  <meta name="description" content="Tải miễn phí các bản Việt hóa game PC: dịch cốt truyện, giao diện, font có dấu đầy đủ, hướng dẫn cài đặt chi tiết.">
+  <meta property="og:title" content="NH Việt Hóa — Game Việt hóa miễn phí">
+  <meta property="og:description" content="Tải miễn phí các bản Việt hóa game PC.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e63946'/%3E%3Cpath d='M32 12l5.9 12.1 13.3 1.9-9.6 9.4 2.3 13.2L32 42.4l-11.9 6.2 2.3-13.2-9.6-9.4 13.3-1.9z' fill='%23ffd166'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true">★</span>
+        <span class="brand-name" data-site="name">NH Việt Hóa</span>
+      </a>
+      <nav class="nav">
+        <a href="#games">Game</a>
+        <a href="#guide">Hướng dẫn</a>
+        <a href="#faq">Hỏi đáp</a>
+        <a id="navGithub" class="btn btn-ghost btn-sm" target="_blank" rel="noopener" hidden>GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Miễn phí · Không quảng cáo · Không cần đăng ký</p>
+      <h1>Chơi game bằng <span class="hl">tiếng Việt</span></h1>
+      <p class="lead" data-site="tagline"></p>
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <main class="wrap" id="games">
+    <div class="sample-note" id="sampleNote" hidden>
+      Đang hiển thị <b>dữ liệu mẫu</b>. Sửa file <code>games.js</code> để thay bằng game thật.
+    </div>
+
+    <div class="toolbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q" type="search" placeholder="Tìm tên game, thể loại…" autocomplete="off">
+      </div>
+      <div class="chips" id="statusChips" role="tablist"></div>
+      <select id="genre" aria-label="Thể loại"></select>
+      <select id="sort" aria-label="Sắp xếp">
+        <option value="updated">Mới cập nhật</option>
+        <option value="title">Tên A → Z</option>
+        <option value="progress">Tiến độ</option>
+        <option value="downloads">Lượt tải</option>
+      </select>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>Không tìm thấy game phù hợp.</p>
+  </main>
+
+  <section class="wrap section" id="guide">
+    <h2>Cài bản Việt hóa thế nào?</h2>
+    <ol class="steps">
+      <li><b>Kiểm tra phiên bản game.</b> Mỗi bản Việt hóa ghi rõ phiên bản game tương thích — game khác phiên bản có thể lỗi chữ hoặc không chạy.</li>
+      <li><b>Sao lưu.</b> Chép dự phòng thư mục game (hoặc chỉ các file sắp bị ghi đè) để gỡ Việt hóa khi cần.</li>
+      <li><b>Tải & giải nén.</b> Bấm vào game → <i>Tải về</i>. File nằm trên GitHub, an toàn và không quảng cáo.</li>
+      <li><b>Làm theo hướng dẫn riêng</b> trong trang của từng game.</li>
+      <li><b>Gỡ Việt hóa:</b> chép lại file đã sao lưu, hoặc dùng Steam → Properties → Verify integrity of game files.</li>
+    </ol>
+  </section>
+
+  <section class="wrap section" id="faq">
+    <h2>Hỏi đáp</h2>
+    <details><summary>Bản Việt hóa có mất phí không?</summary><p>Hoàn toàn miễn phí. Nếu thấy hay, bạn có thể chia sẻ cho bạn bè hoặc ủng hộ tùy tâm.</p></details>
+    <details><summary>Có cần game bản quyền không?</summary><p>Bản Việt hóa chỉ là bản dịch, không kèm game. Hãy mua game chính hãng để ủng hộ nhà phát triển.</p></details>
+    <details><summary>Game cập nhật thì Việt hóa có bị mất?</summary><p>Thường có. Khi game cập nhật, hãy quay lại web xem đã có bản Việt hóa mới cho phiên bản đó chưa.</p></details>
+    <details><summary>Phát hiện lỗi dịch thì báo ở đâu?</summary><p>Báo qua mục liên hệ cuối trang hoặc mở Issue trên GitHub của game đó — ghi rõ câu sai, chỗ xuất hiện, kèm ảnh chụp nếu có.</p></details>
+    <details><summary>Có được đăng lại bản Việt hóa lên trang khác không?</summary><p>Vui lòng dẫn link về trang này thay vì tải lên lại, để mọi người luôn nhận được bản mới nhất.</p></details>
+  </section>
+
+  <section class="wrap section donate" id="donate" hidden>
+    <h2>Ủng hộ người dịch</h2>
+    <p>Mọi bản Việt hóa đều miễn phí. Nếu muốn, bạn có thể mời mình ly cà phê để có thêm động lực dịch game mới.</p>
+    <div class="donate-box" id="donateBox"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <div>
+        <b data-site="name"></b> · Dịch bởi <span data-site="author"></span>
+        <p class="muted">Bản quyền game thuộc về nhà phát triển. Web chỉ chia sẻ bản dịch phi lợi nhuận.</p>
+      </div>
+      <div class="links" id="contactLinks"></div>
+    </div>
+  </footer>
+
+  <!-- Chi tiết game -->
+  <dialog id="modal" aria-labelledby="mTitle">
+    <div class="m-inner" id="mBody"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="games.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
