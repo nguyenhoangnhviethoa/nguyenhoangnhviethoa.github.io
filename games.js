@@ -26,39 +26,62 @@ window.SITE = {
   sample: true = dữ liệu mẫu, XÓA các game mẫu khi đưa game thật vào.
 */
 window.GAMES = [
-  {
-    id: "hollow-lantern",
-    title: "Hollow Lantern",
-    subtitle: "Ngọn Đèn Rỗng",
-    sample: true,
-    cover: "",
-    colors: ["#1b2a4a", "#e0a43a"],
-    genres: ["Nhập vai", "Hành động", "Metroidvania"],
-    platform: "Steam",
-    engine: "Unity",
-    gameVersion: "1.4.2",
-    patchVersion: "1.2",
-    status: "done",
-    progress: 100,
-    updated: "2026-09-21",
-    size: "18 MB",
-    description:
-      "Dịch toàn bộ cốt truyện, hội thoại, giao diện, mô tả vật phẩm và kỹ năng. Đã thay font hỗ trợ đầy đủ dấu tiếng Việt, soát tay toàn bộ câu thoại chính.",
-    features: ["Cốt truyện & hội thoại", "Giao diện / Menu", "Vật phẩm & kỹ năng", "Font có dấu đầy đủ"],
-    install: [
-      "Tải file Viet-hoa-Hollow-Lantern.zip bên dưới.",
-      "Chuột phải game trên Steam → Manage → Browse local files.",
-      "Giải nén, chép đè toàn bộ vào thư mục game (chọn Replace).",
-      "Vào game → Settings → Language → chọn English (đã được thay bằng tiếng Việt)."
-    ],
-    github: { repo: "", tag: "latest" },
-    downloads: [{ label: "Bản Việt hóa v1.2 (GitHub)", url: "https://github.com/your-username/viet-hoa-hollow-lantern/releases/latest" }],
-    changelog: [
-      { version: "1.2", date: "2026-09-21", notes: "Cập nhật cho bản game 1.4.2, sửa 120 câu thoại." },
-      { version: "1.0", date: "2026-08-30", notes: "Phát hành bản đầu tiên." }
-    ],
-    screenshots: []
+{
+  "id": "the-witcher-3-remastered",
+  "title": "The Witcher 3: Wind Hunt - Remastered",
+  "subtitle": "",
+  "cover": "assets/covers/the-witcher-3-remastered.jpg",
+  "colors": [
+    "#1b2a4a",
+    "#e63946"
+  ],
+  "genres": [
+    "Nhập vai",
+    "Hành động",
+    "Thế giới mở"
+  ],
+  "platform": "Steam/EPIC",
+  "engine": "",
+  "gameVersion": "V5.00C",
+  "patchVersion": "1.0",
+  "status": "done",
+  "progress": 100,
+  "updated": "2026-10-04",
+  "size": "10MB",
+  "description": "Việt hóa The Witcher 3 bản Remastered (v5.00c), gồm cả hai bản mở rộng Hearts of Stone và Blood and Wine. Bản dịch dựa trên bản Việt hóa của Viethoagame, phần còn thiếu được dịch bổ sung bằng AI. Xưng hô được chỉnh lại theo quan hệ giữa các nhân vật. Có font tiếng Việt đầy đủ dấu và bộ cài tự động, gỡ ra là trả lại game gốc. Phát hành miễn phí.",
+  "features": [
+    "Cốt truyện & hội thoại (game gốc + Hearts of Stone + Blood and Wine)",
+    "Nhiệm vụ, nhật ký, thư từ, sách",
+    "Giao diện, menu, cài đặt của bản Remastered (Mod, chụp ảnh, trợ năng…)",
+    "Kỹ năng và hướng dẫn",
+    "Phụ đề video: mở đầu, giữa chương, hồi tưởng, kết thúc",
+    "Font tiếng Việt có dấu",
+    "Giữ nguyên tiếng Anh: tên riêng, tên vật phẩm, tên nhiệm vụ"
+  ],
+  "install": [
+    "Tải file zip và giải nén",
+    "Thoát game và launcher (Steam/Epic/GOG)",
+    "Chạy CaiVietHoa_Witcher3.exe (Windows cảnh báo thì bấm More info → Run anyway)",
+    "Bấm \"Cài Việt hóa\" (bộ cài tự tìm thư mục game, không thấy thì bấm \"Đổi…\" để chọn)",
+    "Vào game: Options → Language → Text language = English",
+    "Game cập nhật hoặc Verify thì chạy lại bộ cài; muốn trả tiếng Anh thì bấm \"Gỡ Việt hóa\""
+  ],
+  "github": {
+    "repo": "nguyenhoangnhviethoa/Viet-hoa-The-Witcher-3",
+    "tag": "latest"
   },
+  "downloads": [],
+  "changelog": [
+    {
+      "version": "1.0",
+      "date": "2026-10-04",
+      "notes": "Phát hành."
+    }
+  ],
+  "screenshots": [
+    "assets/shots/the-witcher-3-1.PNG"
+  ]
+},
   {
     id: "starfall-tactics",
     title: "Starfall Tactics",
