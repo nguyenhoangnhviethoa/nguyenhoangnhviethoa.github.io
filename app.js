@@ -130,7 +130,7 @@
   function reveal() {
     if (reduce || !("IntersectionObserver" in window)) return;
     io = io || new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
-    document.querySelectorAll(".card, .g-sec, .steps li, details, .sec-head, .donate-card, .info, .feat").forEach((el, i) => {
+    document.querySelectorAll(".card, .g-sec, .steps li, details, .sec-head, .donate-card, .info, .feat, .story-card").forEach((el, i) => {
       if (el.classList.contains("reveal")) return;
       const r = el.getBoundingClientRect();
       if (r.top < innerHeight) { el.classList.add("reveal", "in"); return; }   // đã trong màn hình thì hiện luôn
