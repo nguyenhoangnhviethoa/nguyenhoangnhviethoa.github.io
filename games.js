@@ -12,8 +12,15 @@ window.SITE = {
   facebook: "",
   discord: "",
   email: "",
-  // Ủng hộ (tùy chọn) — để trống bank thì ẩn khối ủng hộ
-  donate: { bank: "", account: "", holder: "", note: "Ủng hộ Việt hóa" }
+  // Ủng hộ (tùy chọn) — để trống cả qr và bank thì ẩn khối ủng hộ
+  // qr: ảnh mã QR ngân hàng/MoMo, chép vào thư mục assets rồi ghi tên file vào đây
+  donate: {
+    qr: "assets/donate-qr.jpg",
+    bank: "Vietcombank",
+    account: "0431000240104",
+    holder: "NGUYEN HOANG TRUONG",
+    note: "Ung ho Viet hoa"
+  }
 };
 
 /*

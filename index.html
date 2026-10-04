@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e63946'/%3E%3Cpath d='M32 12l5.9 12.1 13.3 1.9-9.6 9.4 2.3 13.2L32 42.4l-11.9 6.2 2.3-13.2-9.6-9.4 13.3-1.9z' fill='%23ffd166'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="home">
@@ -24,21 +24,35 @@
         <a href="#games">Game</a>
         <a href="#guide">Hướng dẫn</a>
         <a href="#faq">Hỏi đáp</a>
+        <a href="#donate" id="navDonate" hidden>Ủng hộ</a>
         <a id="navGithub" class="btn btn-ghost btn-sm js-github" target="_blank" rel="noopener" hidden>GitHub</a>
       </nav>
     </div>
   </header>
 
   <section class="hero">
-    <div class="wrap">
-      <p class="eyebrow">Miễn phí · Không quảng cáo · Không cần đăng ký</p>
-      <h1>Chơi game bằng <span class="hl">tiếng Việt</span></h1>
-      <p class="lead" data-site="tagline"></p>
-      <div class="stats" id="stats"></div>
+    <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
+    <canvas class="embers" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Miễn phí · Không quảng cáo · Không cần đăng ký</p>
+        <h1>Chơi game bằng <span class="hl">tiếng Việt</span></h1>
+        <p class="lead" data-site="tagline"></p>
+        <div class="hero-cta">
+          <a class="btn btn-lg btn-glow" href="#games">Xem kho game</a>
+          <a class="btn btn-lg btn-ghost" href="#guide">Cách cài đặt</a>
+        </div>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div id="featured"></div>
     </div>
   </section>
 
   <main class="wrap" id="games">
+    <div class="sec-head">
+      <p class="eyebrow">Thư viện</p>
+      <h2>Kho game Việt hóa</h2>
+    </div>
     <div class="sample-note" id="sampleNote" hidden>
       Đang hiển thị <b>dữ liệu mẫu</b>. Sửa file <code>games.js</code> để thay bằng game thật.
     </div>
@@ -85,7 +99,7 @@
   <section class="wrap section donate" id="donate" hidden>
     <h2>Ủng hộ người dịch</h2>
     <p>Mọi bản Việt hóa đều miễn phí. Nếu muốn, bạn có thể mời mình ly cà phê để có thêm động lực dịch game mới.</p>
-    <div class="donate-box" id="donateBox"></div>
+    <div id="donateBox"></div>
   </section>
 
   <footer class="footer">

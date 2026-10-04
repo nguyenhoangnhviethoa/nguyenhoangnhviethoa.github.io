@@ -36,6 +36,29 @@
   }
   let tt; function toast(msg) { const t = $("#toast"); if (!t) return; t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2200); }
 
+  /* ---------- Ủng hộ (QR + tài khoản) ---------- */
+  const D = SITE.donate || {};
+  const hasDonate = !!(D.qr || D.bank);
+  function donateHtml(compact) {
+    if (!hasDonate) return "";
+    const rows = [["Ngân hàng", D.bank], ["Số TK", D.account], ["Chủ TK", D.holder], ["Nội dung", D.note]]
+      .filter(([, v]) => v).map(([k, v]) => `<span>${k}</span><b>${esc(v)}</b>`).join("");
+    return `<div class="donate-card ${compact ? "compact" : ""}">
+      ${compact ? `<div><b class="donate-title">♥ Ủng hộ người dịch</b><p class="muted small">Bản Việt hóa miễn phí. Thấy hay thì mời mình ly cà phê nhé!</p></div>` : ""}
+      ${D.qr ? `<img class="donate-qr" src="${esc(D.qr)}" alt="Mã QR ủng hộ${D.bank ? " – " + esc(D.bank) : ""}" loading="lazy">` : ""}
+      <div class="donate-info">
+        ${rows ? `<div class="donate-rows">${rows}</div>` : ""}
+        ${D.account ? `<button class="btn btn-ghost btn-sm" data-copy="${esc(D.account)}">Sao chép số tài khoản</button>` : ""}
+        ${D.qr ? `<p class="muted small">Dùng điện thoại: chụp màn hình mã QR → mở app ngân hàng → Quét QR → chọn ảnh vừa chụp.</p>` : ""}
+      </div>
+    </div>`;
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-copy]"); if (!b) return;
+    const t = b.dataset.copy;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Đã sao chép số tài khoản"), () => toast(t));
+  });
+
   /* ---------- GitHub Releases (tự lấy link tải + lượt tải) ---------- */
   const CACHE_MIN = 30;
   function cacheGet(k) { try { const v = JSON.parse(localStorage.getItem(k)); if (v && Date.now() - v.t < CACHE_MIN * 60000) return v.d; } catch (_) {} return null; }
@@ -63,6 +86,62 @@
     if (data) { g._gh = data; g._dl = data.total; }
   }
 
+  /* ---------- Hiệu ứng: tàn lửa bay, đếm số, hiện dần khi cuộn ---------- */
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const emberRuns = new WeakSet();
+  function embers() {
+    if (reduce) return;
+    document.querySelectorAll("canvas.embers").forEach(cv => {
+      if (emberRuns.has(cv)) return; emberRuns.add(cv);
+      const ctx = cv.getContext("2d"); let W, H, parts = [];
+      const size = () => { const r = cv.getBoundingClientRect(); W = cv.width = r.width * devicePixelRatio; H = cv.height = r.height * devicePixelRatio; };
+      size(); addEventListener("resize", size);
+      const N = Math.min(70, Math.round(W / 22));
+      const make = (y) => ({ x: Math.random() * W, y: y ?? H + Math.random() * H * .3, r: (Math.random() * 1.8 + .6) * devicePixelRatio,
+        vy: (Math.random() * .6 + .25) * devicePixelRatio, vx: (Math.random() - .5) * .3 * devicePixelRatio, a: Math.random() * .6 + .3, t: Math.random() * 6.28,
+        c: Math.random() < .7 ? "255,140,60" : "255,209,102" });
+      for (let i = 0; i < N; i++) parts.push(make(Math.random() * H));
+      let vis = true;
+      new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(cv);
+      (function tick() {
+        if (vis && cv.isConnected) {
+          ctx.clearRect(0, 0, W, H);
+          for (const p of parts) {
+            p.t += .03; p.y -= p.vy; p.x += p.vx + Math.sin(p.t) * .35;
+            if (p.y < -10) Object.assign(p, make());
+            const fade = Math.min(1, p.y / (H * .5));
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
+            ctx.fillStyle = `rgba(${p.c},${p.a * fade})`; ctx.shadowBlur = 8 * devicePixelRatio; ctx.shadowColor = `rgba(${p.c},.9)`;
+            ctx.fill();
+          }
+        }
+        if (cv.isConnected) requestAnimationFrame(tick);
+      })();
+    });
+  }
+  function countUp() {
+    document.querySelectorAll("[data-count]").forEach(el => {
+      const end = +el.dataset.count; if (!end || reduce || el.dataset.done) return;
+      el.dataset.done = 1; const t0 = performance.now(), dur = 1100;
+      (function step(t) { const k = Math.min(1, (t - t0) / dur); el.textContent = fmtNum(Math.round(end * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(step); })(t0);
+    });
+  }
+  let io;
+  function reveal() {
+    if (reduce || !("IntersectionObserver" in window)) return;
+    io = io || new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll(".card, .g-sec, .steps li, details, .sec-head, .donate-card, .info, .feat").forEach((el, i) => {
+      if (el.classList.contains("reveal")) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight) { el.classList.add("reveal", "in"); return; }   // đã trong màn hình thì hiện luôn
+      el.classList.add("reveal"); el.style.transitionDelay = (i % 4) * 60 + "ms"; io.observe(el);
+    });
+  }
+  function fx() { embers(); reveal(); }
+  const tb = document.querySelector(".topbar");
+  const onScroll = () => tb && tb.classList.toggle("scrolled", scrollY > 20);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
   if (PAGE === "game") gamePage(); else homePage();
 
   /* =========================================================
@@ -74,10 +153,10 @@
     if (old) { location.replace("game.html?id=" + old[1]); return; }
 
     if (SITE.name) document.title = `${SITE.name} — Game Việt hóa miễn phí`;
-    if (SITE.donate && SITE.donate.bank) {
-      const d = SITE.donate;
+    if (hasDonate) {
       $("#donate").hidden = false;
-      $("#donateBox").innerHTML = `<span>Ngân hàng</span><b>${esc(d.bank)}</b><span>Số TK</span><b>${esc(d.account)}</b><span>Chủ TK</span><b>${esc(d.holder)}</b>${d.note ? `<span>Nội dung</span><b>${esc(d.note)}</b>` : ""}`;
+      $("#donateBox").innerHTML = donateHtml(false);
+      const nd = $("#navDonate"); if (nd) nd.hidden = false;
     }
     $("#sampleNote").hidden = !GAMES.some(g => g.sample);
 
@@ -86,7 +165,8 @@
       const dl = GAMES.reduce((s, g) => s + (g._dl || 0), 0);
       const items = [[GAMES.length, "Game"], [done, "Đã hoàn thành"], [GAMES.length - done, "Đang làm / Beta"]];
       if (dl) items.push([fmtNum(dl), "Lượt tải"]);
-      $("#stats").innerHTML = items.map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
+      $("#stats").innerHTML = items.map(([n, l]) => `<div class="stat"><b data-count="${String(n).replace(/\D/g, "")}">${n}</b><span>${l}</span></div>`).join("");
+      countUp();
     }
 
     const state = { q: "", status: "all", genre: "all", sort: "updated" };
@@ -124,7 +204,7 @@
       $("#empty").hidden = list.length > 0;
       $("#grid").innerHTML = list.map(g => {
         const st = STATUS[g.status] || STATUS.wip;
-        return `<a class="card" href="${gameUrl(g)}" target="_blank" rel="noopener" aria-label="Xem ${esc(g.title)} (mở tab mới)">
+        return `<a class="card" href="${gameUrl(g)}" aria-label="Xem ${esc(g.title)}">
           <div class="cover" style="${coverStyle(g)}">${coverArt(g)}
             <span class="badge ${st.cls}">● ${st.label}</span>
             ${g.sample ? `<span class="badge sample">Mẫu</span>` : ""}
@@ -140,8 +220,32 @@
       }).join("");
     }
 
-    renderStats(); render();
-    Promise.all(GAMES.map(loadGithub)).then(() => { if (GAMES.some(g => g._gh)) { renderStats(); render(); } });
+    function renderFeatured() {
+      const pick = [...GAMES].filter(g => !g.sample).sort((a, b) => String(b.updated || "").localeCompare(String(a.updated || "")))[0]
+        || GAMES[0];
+      const box = $("#featured");
+      if (!pick) { box.hidden = true; return; }
+      const img = pick.hero || (pick.screenshots || [])[0] || pick.cover;
+      if (img) $("#heroBg").style.backgroundImage = `url('${esc(img)}')`;
+      const st = STATUS[pick.status] || STATUS.wip;
+      box.innerHTML = `<a class="feat" href="${gameUrl(pick)}">
+        <div class="feat-img" style="${img ? `background-image:url('${esc(img)}')` : coverStyle(pick)}"></div>
+        <div class="feat-body">
+          <span class="feat-tag">★ Mới phát hành</span>
+          <h3>${esc(pick.title)}</h3>
+          <p>${esc((pick.description || "").slice(0, 120))}${(pick.description || "").length > 120 ? "…" : ""}</p>
+          <div class="feat-meta">
+            <span class="pill ${st.cls}">● ${st.label}</span>
+            ${hasVer(pick.patchVersion) ? `<span class="pill">Việt hóa v${esc(pick.patchVersion)}</span>` : ""}
+            ${pick._dl ? `<span class="pill">⬇ ${fmtNum(pick._dl)} lượt tải</span>` : ""}
+          </div>
+          <span class="feat-go">Xem chi tiết & tải về →</span>
+        </div>
+      </a>`;
+    }
+
+    renderStats(); render(); renderFeatured(); fx();
+    Promise.all(GAMES.map(loadGithub)).then(() => { if (GAMES.some(g => g._gh)) { renderStats(); render(); renderFeatured(); reveal(); } });
   }
 
   /* =========================================================
@@ -169,7 +273,9 @@
       const row = (k, v) => v ? `<div class="row"><span>${k}</span><b>${esc(v)}</b></div>` : "";
 
       root.innerHTML = `
-        <section class="g-hero" style="${heroImg ? `background-image:url('${esc(heroImg)}')` : coverStyle(g)}">
+        <section class="g-hero">
+          <div class="g-hero-bg" style="${heroImg ? `background-image:url('${esc(heroImg)}')` : coverStyle(g)}" aria-hidden="true"></div>
+          <canvas class="embers" aria-hidden="true"></canvas>
           <div class="wrap g-hero-in">
             <div class="g-thumb cover" style="${coverStyle(g)}">${coverArt(g)}</div>
             <div class="g-head">
@@ -180,7 +286,7 @@
               <h1>${esc(g.title)}</h1>
               ${g.subtitle ? `<p class="g-sub">${esc(g.subtitle)}</p>` : ""}
               <div class="g-cta">
-                ${main ? `<a class="btn btn-lg" href="${esc(main.url)}" target="_blank" rel="noopener">⬇ Tải bản Việt hóa${gh ? " " + esc(gh.tag) : hasVer(g.patchVersion) ? " v" + esc(g.patchVersion) : ""}</a>`
+                ${main ? `<a class="btn btn-lg" href="${esc(main.url)}">⬇ Tải bản Việt hóa${gh ? " " + esc(gh.tag) : hasVer(g.patchVersion) ? " v" + esc(g.patchVersion) : ""}</a>`
                        : `<a class="btn btn-lg" aria-disabled="true">Chưa phát hành</a>`}
                 ${shots.length ? `<a class="btn btn-ghost btn-lg" href="#anh">Xem ảnh trong game</a>` : ""}
               </div>
@@ -200,7 +306,7 @@
               <ul class="g-feat">${g.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul></section>` : ""}
 
             ${shots.length ? `<section class="g-sec" id="anh"><h2>Ảnh trong game <span class="muted">(${shots.length})</span></h2>
-              <div class="g-shots ${shots.length === 1 ? "one" : ""}">${shots.map((s, i) =>
+              <div class="g-shots">${shots.map((s, i) =>
                 `<button class="shot" data-i="${i}" aria-label="Phóng to ảnh ${i + 1}"><img src="${esc(s)}" alt="Ảnh ${i + 1} trong game ${esc(g.title)}" loading="${i ? "lazy" : "eager"}"></button>`).join("")}
               </div><p class="muted small">Bấm vào ảnh để xem cỡ lớn.</p></section>` : ""}
 
@@ -227,12 +333,13 @@
               ${g._dl ? row("Lượt tải", fmtNum(g._dl)) : ""}
               <div class="dl">
                 ${downloads.length
-                  ? downloads.map(d => `<a class="btn" href="${esc(d.url)}" target="_blank" rel="noopener">⬇ ${esc(d.label)}</a>${d.note ? `<small>${esc(d.note)}</small>` : ""}`).join("")
+                  ? downloads.map(d => `<a class="btn" href="${esc(d.url)}">⬇ ${esc(d.label)}</a>${d.note ? `<small>${esc(d.note)}</small>` : ""}`).join("")
                   : `<a class="btn" aria-disabled="true">Chưa phát hành</a>`}
                 <button class="btn btn-ghost btn-sm" data-share>🔗 Sao chép link game</button>
                 ${g.github && g.github.repo ? `<a class="btn btn-ghost btn-sm" href="https://github.com/${esc(g.github.repo)}/issues" target="_blank" rel="noopener">Báo lỗi dịch</a>` : ""}
               </div>
             </div>
+            ${donateHtml(true)}
           </aside>
         </div>`;
     }
@@ -269,7 +376,7 @@
       if (e.target.closest("[data-share]")) copy(location.href);
     });
 
-    render();
-    loadGithub(g).then(() => { if (g._gh) render(); });
+    render(); fx();
+    loadGithub(g).then(() => { if (g._gh) { render(); fx(); } });
   }
 })();
