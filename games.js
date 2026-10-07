@@ -47,10 +47,10 @@ window.GAMES = [
     "platform": "Steam / Epic / GOG",
     "engine": "",
     "gameVersion": "V5.00C",
-    "patchVersion": "1.0",
+    "patchVersion": "1.0.1",
     "status": "done",
     "progress": 100,
-    "updated": "2026-10-04",
+    "updated": "2026-10-08",
     "size": "10MB",
     "description": "Việt hóa The Witcher 3 bản Remastered (v5.00c), gồm cả hai bản mở rộng Hearts of Stone và Blood and Wine. Bản dịch dựa trên bản Việt hóa của Viethoagame, phần còn thiếu được dịch bổ sung bằng AI. Xưng hô được chỉnh lại theo quan hệ giữa các nhân vật. Có font tiếng Việt đầy đủ dấu và bộ cài tự động, gỡ ra là trả lại game gốc. Phát hành miễn phí.",
     "features": [
@@ -76,6 +76,7 @@ window.GAMES = [
     ],
     // SHA256 của file trên GitHub Releases, theo tên file (PowerShell: Get-FileHash ten-file.zip)
     "checksums": {
+      "VietHoa_Witcher3_Remasterv1.0.1.zip": "9b66aab01f24cb92213bfe496c7364d5d449c58a93c7b78c44685dd886ad5da4",
       "VietHoa_Witcher3_Remasterv1.0.zip": "bd8e68fb6a544466162d2c7820d4b0e51fcad866af97c7590b680b7a38815138"
     },
     // Link kết quả quét VirusTotal (tùy chọn): upload file .zip lên virustotal.com rồi dán link vào đây
@@ -83,6 +84,7 @@ window.GAMES = [
     "github": { "repo": "nguyenhoangnhviethoa/Viet-hoa-The-Witcher-3", "tag": "latest" },
     "downloads": [],
     "changelog": [
+      { "version": "1.0.1", "date": "2026-10-08", "notes": "Sửa lỗi dịch, chỉnh lại câu chữ." },
       { "version": "1.0", "date": "2026-10-04", "notes": "Phát hành." }
     ],
     "screenshots": ["assets/shots/the-witcher-3-1.jpg", "assets/shots/the-witcher-3-2.jpg"]
