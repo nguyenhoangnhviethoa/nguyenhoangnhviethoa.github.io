@@ -38,6 +38,53 @@ window.SITE = {
 */
 window.GAMES = [
   {
+    "id": "total-war-shogun-2",
+    "title": "Total War: SHOGUN 2",
+    "subtitle": "Gồm Rise of the Samurai và Fall of the Samurai",
+    "cover": "",
+    "colors": ["#1a0d0d", "#c8102e"],
+    "genres": ["Chiến thuật", "Thời gian thực", "Lịch sử"],
+    "platform": "Steam",
+    "engine": "Warscape",
+    "gameVersion": "Bản Steam mới nhất",
+    "patchVersion": "1.0",
+    "status": "done",
+    "progress": 100,
+    "updated": "2026-10-08",
+    "size": "6MB",
+    "description": "Việt hóa Total War: SHOGUN 2 bản Steam, gồm cả hai bản mở rộng Rise of the Samurai và Fall of the Samurai. Dịch toàn bộ chữ trong game, lời cố vấn và cả Bách khoa (wiki trong game) bằng AI, có soát lại câu chữ. Có font tiếng Việt và bộ cài tự động: chỉ thêm một file chữ, không đụng tới file save, gỡ ra là trả lại game gốc. Phát hành miễn phí.",
+    "features": [
+      "Toàn bộ chữ trong game: Shogun 2, Rise of the Samurai, Fall of the Samurai",
+      "Lời cố vấn",
+      "Bách khoa (wiki trong game) — hơn 1.500 trang",
+      "Giao diện, menu, nhiệm vụ, sự kiện",
+      "Font tiếng Việt có dấu"
+    ],
+    "install": [
+      "Tải file zip và giải nén",
+      "Thoát hẳn game",
+      "Chạy CaiVietHoa_Shogun2.exe (Windows cảnh báo thì bấm More info → Run anyway; game nằm trong Program Files thì bộ cài sẽ xin quyền Administrator)",
+      "Bộ cài tự tìm thư mục game; không thấy thì bấm \"Đổi…\" và chọn thư mục game (Steam: chuột phải Total War: SHOGUN 2 → Manage → Browse local files)",
+      "Bấm \"Cài Việt hóa\", đợi chạy tới 100%",
+      "Mở game là có tiếng Việt — giữ ngôn ngữ game là English, không cần đổi gì"
+    ],
+    "installNotes": [
+      "Bộ cài chỉ thêm file data\\viethoa.pack và thay các trang Bách khoa trong data\\encyclopedia; không đụng tới file save.",
+      "Muốn trả tiếng Anh: chạy lại bộ cài → bấm \"Gỡ Việt hóa\" (bộ cài có sẵn bản gốc của Bách khoa, không cần sao lưu).",
+      "Nếu dùng \"Verify integrity of game files\" trên Steam, Bách khoa có thể trở về tiếng Anh: chạy lại bộ cài là xong."
+    ],
+    "checksums": {
+      "VietHoa_Shogun2v1.0.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f"
+    },
+    "virustotal": "",
+    "github": { "repo": "nguyenhoangnhviethoa/Viet-hoa-Shogun-2", "tag": "latest" },
+    "downloads": [],
+    "changelog": [
+      { "version": "1.0", "date": "2026-10-08", "notes": "Phát hành." }
+    ],
+    "screenshots": []
+  },
+  {
     "id": "the-witcher-3-remastered",
     "title": "The Witcher 3: Wild Hunt - Remastered",
     "subtitle": "",
