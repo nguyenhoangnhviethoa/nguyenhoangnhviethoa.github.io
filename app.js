@@ -103,7 +103,7 @@
       const ctx = cv.getContext("2d"); let W, H, parts = [];
       const size = () => { const r = cv.getBoundingClientRect(); W = cv.width = r.width * devicePixelRatio; H = cv.height = r.height * devicePixelRatio; };
       size(); addEventListener("resize", size);
-      const N = Math.min(70, Math.round(W / 22));
+      const N = cv.classList.contains("page") ? Math.min(45, Math.round(W / 45)) : Math.min(70, Math.round(W / 22));
       const make = (y) => ({ x: Math.random() * W, y: y ?? H + Math.random() * H * .3, r: (Math.random() * 1.8 + .6) * devicePixelRatio,
         vy: (Math.random() * .6 + .25) * devicePixelRatio, vx: (Math.random() - .5) * .3 * devicePixelRatio, a: Math.random() * .6 + .3, t: Math.random() * 6.28,
         c: Math.random() < .7 ? "255,140,60" : "255,209,102" });
@@ -144,6 +144,22 @@
       el.classList.add("reveal"); el.style.transitionDelay = (i % 4) * 60 + "ms"; io.observe(el);
     });
   }
+  /* Nền động toàn trang: đốm sáng trôi + tàn lửa (chèn 1 lần) */
+  (function pageBg() {
+    if (document.querySelector(".bg-fx")) return;
+    const bg = document.createElement("div");
+    bg.className = "bg-fx"; bg.setAttribute("aria-hidden", "true");
+    bg.innerHTML = '<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i><canvas class="embers page"></canvas>';
+    document.body.prepend(bg);
+  })();
+  /* Ánh sáng đi theo con trỏ trên thẻ / ô */
+  document.addEventListener("pointermove", e => {
+    const el = e.target.closest && e.target.closest(".card, .info, .story-card, .g-feat li, .feat, .donate-card, .steps li, .story-points li, .stat, details");
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    el.style.setProperty("--my", (e.clientY - r.top) + "px");
+  }, { passive: true });
   function fx() { embers(); reveal(); }
   const tb = document.querySelector(".topbar");
   const onScroll = () => tb && tb.classList.toggle("scrolled", scrollY > 20);
@@ -296,7 +312,7 @@
         : ((g.downloads && g.downloads.length) ? g.downloads : fallbackDl);
       const main = downloads[0];
       const checksum = g.checksum || (gh && gh.assets[0] && (g.checksums || {})[gh.assets[0].name]);
-      const row = (k, v) => v ? `<div class="row"><span>${k}</span><b>${esc(v)}</b></div>` : "";
+      const row = (k, v) => v ? `<div class="row${String(v).length > 26 ? " long" : ""}"><span>${k}</span><b>${esc(v)}</b></div>` : "";
 
       root.innerHTML = `
         <section class="g-hero">

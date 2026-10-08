@@ -400,3 +400,104 @@ details summary::marker { color: var(--gold); }
 .story-points b { font-size: 15.5px; }
 .story-points span { color: var(--muted); font-size: 14px; }
 @media (max-width: 900px) { .story-card { grid-template-columns: minmax(0, 1fr); } }
+
+/* =========================================================
+   BỐ CỤC RỘNG — tận dụng màn hình lớn, bớt xuống dòng
+   ========================================================= */
+.wrap { max-width: 1480px; padding-left: clamp(16px, 3vw, 40px); padding-right: clamp(16px, 3vw, 40px); }
+@media (min-width: 1800px) { .wrap { max-width: 1640px; } }
+
+/* Trang game: cột thông tin rộng hơn, nội dung chính chia nhiều cột hơn */
+.g-body { grid-template-columns: minmax(0, 1fr) 380px; gap: 48px; }
+@media (min-width: 1800px) { .g-body { grid-template-columns: minmax(0, 1fr) 420px; } }
+.g-desc { max-width: 95ch; }
+.g-feat { grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+.g-shots { grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); }
+
+/* Bảng thông tin: nhãn không bị bẻ dòng; giá trị dài thì xuống dòng gọn bên dưới nhãn */
+.info .row span { white-space: nowrap; flex: none; }
+.info .row b { min-width: 0; text-align: right; }
+.info .row.long { flex-direction: column; gap: 2px; }
+.info .row.long b { text-align: left; }
+
+/* Trang chủ: lưới game nhiều cột hơn, phần đầu cân đối */
+.grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.hero-grid { gap: 56px; }
+
+@media (max-width: 900px) {
+  .g-body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+
+/* =========================================================
+   NỀN ĐỘNG TOÀN TRANG + HIỆU ỨNG RÊ CHUỘT
+   ========================================================= */
+.bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.bg-fx .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; will-change: transform; }
+.bg-fx .o1 { width: 46vw; height: 46vw; left: -12vw; top: 30vh; background: radial-gradient(circle, #e6394655, transparent 70%); animation: orb1 26s ease-in-out infinite alternate; }
+.bg-fx .o2 { width: 40vw; height: 40vw; right: -10vw; top: 55vh; background: radial-gradient(circle, #ffb34744, transparent 70%); animation: orb2 32s ease-in-out infinite alternate; }
+.bg-fx .o3 { width: 34vw; height: 34vw; left: 35vw; top: 85vh; background: radial-gradient(circle, #7b5cff33, transparent 70%); animation: orb3 38s ease-in-out infinite alternate; }
+.bg-fx .o4 { width: 28vw; height: 28vw; right: 25vw; top: -8vh; background: radial-gradient(circle, #ff6b3d33, transparent 70%); animation: orb2 30s ease-in-out infinite alternate-reverse; }
+@keyframes orb1 { to { transform: translate(18vw, -30vh) scale(1.15); } }
+@keyframes orb2 { to { transform: translate(-16vw, -38vh) scale(.9); } }
+@keyframes orb3 { to { transform: translate(-22vw, -60vh) scale(1.2); } }
+.bg-fx canvas.embers.page { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .7; }
+/* lớp hạt li ti cho nền đỡ phẳng */
+.bg-fx::after { content: ""; position: absolute; inset: 0; opacity: .05;
+  background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 3px 3px; }
+
+/* Ánh sáng theo con trỏ */
+.card, .info, .story-card, .g-feat li, .feat, .donate-card, .steps li, .story-points li, .stat, details { --mx: 50%; --my: 50%; }
+.info, .g-feat li, .donate-card, .steps li, .story-points li, .stat, details, .story-card { position: relative; }
+.card::after, .info::after, .g-feat li::after, .donate-card::after, .steps li::after, .story-points li::after, .stat::after, details::after, .story-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(260px circle at var(--mx) var(--my), #ffd1661c, transparent 70%); }
+.card:hover::after, .info:hover::after, .g-feat li:hover::after, .donate-card:hover::after, .steps li:hover::after,
+.story-points li:hover::after, .stat:hover::after, details:hover::after, .story-card:hover::after { opacity: 1; }
+
+/* Nút: vệt sáng lướt + nảy nhẹ */
+.btn { position: relative; overflow: hidden; isolation: isolate; transition: transform .2s, box-shadow .25s, filter .2s, background .25s, border-color .25s; }
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 30%, #ffffff40 50%, transparent 70%); transform: translateX(-120%); transition: transform .6s; }
+.btn:hover::before { transform: translateX(120%); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(.98); }
+.btn-ghost:hover { border-color: #ffd16688; box-shadow: 0 0 0 3px #ffd16614, 0 8px 22px #0007; background: #ffd1660f; }
+.btn:not(.btn-ghost):hover { box-shadow: 0 10px 30px #e6394680; }
+
+/* Logo xoay nhẹ */
+.brand .logo { transition: transform .5s cubic-bezier(.3,1.6,.5,1); }
+.brand:hover .logo { transform: rotate(-14deg) scale(1.12); }
+.brand .brand-name { transition: color .25s, text-shadow .25s; }
+.brand:hover .brand-name { color: var(--gold); text-shadow: 0 0 18px #ffd16655; }
+
+/* Thẻ nhãn, pill, chip */
+.tag, .pill { transition: transform .2s, background .2s, color .2s, border-color .2s; }
+.card:hover .tag { background: #ffd16618; color: #f1e2b8; }
+.pill:hover, .tag:hover { transform: translateY(-2px); background: #ffd1661f; color: var(--gold); }
+
+/* Biểu tượng trong các ô */
+.g-feat li::before, .steps li::before, .story-points li::before { transition: transform .35s cubic-bezier(.3,1.6,.5,1), box-shadow .3s, color .3s; }
+.g-feat li:hover::before { transform: scale(1.45) rotate(-10deg); color: #6dffb5; text-shadow: 0 0 12px #3ccf8e; }
+.steps li:hover::before { transform: scale(1.15) rotate(-8deg); box-shadow: 0 0 18px #e63946aa; }
+.story-points li:hover::before { transform: rotate(180deg) scale(1.3); text-shadow: 0 0 14px var(--gold); }
+details summary { transition: color .2s, padding-left .25s; }
+details summary:hover { color: var(--gold); padding-left: 6px; }
+
+/* Thẻ thống kê, dòng thông tin */
+.stat b { transition: transform .3s, text-shadow .3s; display: inline-block; }
+.stat:hover b { transform: scale(1.12); text-shadow: 0 0 20px #ffd16688; }
+.info .row { transition: background .2s, padding .2s; border-radius: 6px; }
+.info .row:hover { background: #ffffff08; padding-left: 6px; padding-right: 6px; }
+
+/* Link chân trang & menu */
+.footer a, .links a { transition: color .2s, text-shadow .2s; }
+.footer a:hover, .links a:hover { color: #fff; text-shadow: 0 0 12px #ffd16699; text-decoration: none; }
+
+/* Ảnh: tối nhẹ các ảnh khác khi rê vào một ảnh */
+.g-shots:hover .shot:not(:hover) img { filter: brightness(.6) saturate(.8); }
+.shot img { transition: transform .4s, filter .3s; }
+.lb-btn { transition: transform .2s, background .2s; }
+.lb-btn:hover { transform: scale(1.12); }
+.lb-prev:hover, .lb-next:hover { transform: translateY(-50%) scale(1.12); }
+
+@media (hover: none) { .bg-fx .orb { opacity: .4; } }
+@media (prefers-reduced-motion: reduce) { .bg-fx .orb { animation: none; } .bg-fx canvas { display: none; } }
