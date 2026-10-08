@@ -54,7 +54,7 @@ window.GAMES = [
     ],
     "platform": "Steam (Windows)",
     "engine": "Warscape",
-    "gameVersion": "v1.1.0 (build 6262.29)",
+    "gameVersion": "Bản Steam tại ngày 08/10/2026 (v1.1.0, build 6262.29)",
     "patchVersion": "1.0.2",
     "status": "done",
     "progress": 100,
