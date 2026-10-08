@@ -1,0 +1,20 @@
+CONG CU CHUAN BI DANG BAN VIET HOA (NH Viet Hoa)
+
+Mo: nhap dup "Dang ban moi.bat" (lan dau tu cai thu vien anh Pillow).
+
+1. Chon thu muc ban dich (vd Downloads\VietHoa_BoCai\Shogun2) -> bam "Doc thong tin".
+2. Xem muc 2: 3 cho so phien ban (ten zip, THONG_TIN_WEB.md, ma nguon) co dau tich xanh la khop.
+   Lech nhau thi cong cu lay so lon nhat va canh bao mau vang -> kiem tra lai truoc khi ghi.
+3. Muc 3: chon game (tu nhan ra theo ten) hoac "+ Game moi" (dien ma id va repo).
+   Phien ban game: ghi theo ngay upload. Chon anh bia (anh menu co logo) / anh trong game neu co.
+   "Lay lai noi dung trang tu THONG_TIN_WEB.md": chi tick khi muon thay gioi thieu, da dich,
+   gioi han, huong dan cai bang noi dung moi trong file md.
+4. Bam "Xem truoc thay doi" -> doc phan xanh/do -> bam "Ghi vao thu muc web".
+   Ban cu cua games.js luon duoc giu o games.js.bak.
+
+Sau khi ghi: nho Claude "day ban moi len web" (hoac tu tao Release + day games.js va anh moi).
+Ghi chu phat hanh soan san nam trong thu muc "_ban-phat-hanh (khong upload len web)", file .release.md.
+
+KHONG day len GitHub: games.js.bak, thu muc _ban-phat-hanh.
+Cong cu khong ket noi mang, khong tu thay doi; chi can sua khi doi cach viet THONG_TIN_WEB.md.
+Chay kiem tra khong giao dien: python dang_ban.pyw --kiem-tra "<thu muc ban dich>"
