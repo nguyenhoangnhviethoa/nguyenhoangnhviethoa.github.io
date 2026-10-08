@@ -1,11 +1,11 @@
-# Tự chạy "node build.js" mỗi khi games.js (hoặc build.js) thay đổi,
-# rồi commit các trang game/<id>.html + sitemap.xml ngược lại repo.
+# Tự chạy "node build.js" mỗi khi games.js/app.js/style.css (hoặc build.js) thay đổi,
+# rồi commit trang game/<id>.html, sitemap.xml và số ?v= chống lưu tạm ngược lại repo.
 # Trường chỉ cần sửa games.js như trước, không phải chạy gì thêm.
 name: build
 on:
   push:
     branches: [main]
-    paths: [games.js, build.js, .github/workflows/build.yml]
+    paths: [games.js, app.js, style.css, index.html, game.html, build.js, .github/workflows/build.yml]
   workflow_dispatch:
 permissions:
   contents: write
@@ -22,5 +22,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add game sitemap.xml
+          git add game sitemap.xml index.html game.html 404.html them-game.html
           git diff --cached --quiet && echo "Không có gì thay đổi" || (git commit -m "build: trang game tĩnh + sitemap" && git push)
