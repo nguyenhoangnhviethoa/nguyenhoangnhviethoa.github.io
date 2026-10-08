@@ -40,49 +40,79 @@ window.GAMES = [
   {
     "id": "total-war-shogun-2",
     "title": "Total War: SHOGUN 2",
-    "subtitle": "Gồm Rise of the Samurai và Fall of the Samurai",
-    "cover": "",
-    "colors": ["#1a0d0d", "#c8102e"],
-    "genres": ["Chiến thuật", "Thời gian thực", "Lịch sử"],
-    "platform": "Steam",
+    "subtitle": "Kèm Rise of the Samurai và Fall of the Samurai",
+    "cover": "assets/covers/total-war-shogun-2.jpg",
+    "hero": "assets/shots/total-war-shogun-2-2.jpg",
+    "colors": [
+      "#1a0d0d",
+      "#c8102e"
+    ],
+    "genres": [
+      "Chiến thuật",
+      "Thời gian thực",
+      "Lịch sử"
+    ],
+    "platform": "Steam (Windows)",
     "engine": "Warscape",
-    "gameVersion": "Bản Steam mới nhất",
-    "patchVersion": "1.0",
+    "gameVersion": "v1.1.0 (build 6262.29)",
+    "patchVersion": "1.0.2",
     "status": "done",
     "progress": 100,
     "updated": "2026-10-08",
-    "size": "6MB",
-    "description": "Việt hóa Total War: SHOGUN 2 bản Steam, gồm cả hai bản mở rộng Rise of the Samurai và Fall of the Samurai. Dịch toàn bộ chữ trong game, lời cố vấn và cả Bách khoa (wiki trong game) bằng AI, có soát lại câu chữ. Có font tiếng Việt và bộ cài tự động: chỉ thêm một file chữ, không đụng tới file save, gỡ ra là trả lại game gốc. Phát hành miễn phí.",
+    "size": "6,3 MB",
+    "description": "Bản Việt hóa đầy đủ cho Total War: SHOGUN 2 và hai bản mở rộng, có font tiếng Việt và bộ cài một nút. Văn phong theo không khí Nhật thời Chiến Quốc: cố vấn gọi người chơi là \"chúa công\", quân mình là \"quân ta\", sứ giả ngoại giao xưng hô tùy thái độ thân thiện hay thù địch. Thuật ngữ được thống nhất xuyên suốt (Sĩ khí, Tháo chạy, Danh vọng gia tộc, Thương điếm…) và đã quét máy toàn bộ để không lỗi biến, không sót chữ.",
     "features": [
-      "Toàn bộ chữ trong game: Shogun 2, Rise of the Samurai, Fall of the Samurai",
-      "Lời cố vấn",
-      "Bách khoa (wiki trong game) — hơn 1.500 trang",
-      "Giao diện, menu, nhiệm vụ, sự kiện",
-      "Font tiếng Việt có dấu"
+      "24.745 chuỗi chữ trong game (~431.000 từ): giao diện, tooltip, đơn vị, công trình, học thuật, kỹ năng tướng và ninja/metsuke/tăng nhân",
+      "Sự kiện chiến dịch, nhiệm vụ, lời hịch trước trận, thoại ngoại giao",
+      "Lời cố vấn (chữ), hướng dẫn chơi, danh ngôn màn hình tải",
+      "Hai bản mở rộng: Rise of the Samurai (Chiến tranh Genpei) và Fall of the Samurai (Chiến tranh Boshin)",
+      "Bách khoa trong game: 1.527 trang, kể cả chú thích khi rê chuột",
+      "Font: thêm 92 chữ có dấu vào font Bardi gốc của game, giữ đúng nét chữ"
+    ],
+    "limits": [
+      "Giọng đọc của cố vấn và lính là file âm thanh nên vẫn tiếng Anh (phần chữ đã dịch).",
+      "Tên nhân vật lịch sử, tên người giữ nguyên tiếng Nhật.",
+      "Ở cỡ chữ rất nhỏ (cỡ 4/6/8 đậm), chữ hiện không dấu."
     ],
     "install": [
-      "Tải file zip và giải nén",
-      "Thoát hẳn game",
-      "Chạy CaiVietHoa_Shogun2.exe (Windows cảnh báo thì bấm More info → Run anyway; game nằm trong Program Files thì bộ cài sẽ xin quyền Administrator)",
-      "Bộ cài tự tìm thư mục game; không thấy thì bấm \"Đổi…\" và chọn thư mục game (Steam: chuột phải Total War: SHOGUN 2 → Manage → Browse local files)",
-      "Bấm \"Cài Việt hóa\", đợi chạy tới 100%",
-      "Mở game là có tiếng Việt — giữ ngôn ngữ game là English, không cần đổi gì"
+      "Thoát hẳn game, tải file zip và giải nén",
+      "Chạy CaiVietHoa_Shogun2.exe — bộ cài tự tìm thư mục game; không thấy thì bấm \"Đổi…\" (Steam: chuột phải game → Manage → Browse local files)",
+      "Bấm \"Cài Việt hóa\", đợi tới 100%",
+      "Mở game là có tiếng Việt, giữ ngôn ngữ English",
+      "Muốn gỡ: chạy lại bộ cài → \"Gỡ Việt hóa\""
     ],
     "installNotes": [
-      "Bộ cài chỉ thêm file data\\viethoa.pack và thay các trang Bách khoa trong data\\encyclopedia; không đụng tới file save.",
-      "Muốn trả tiếng Anh: chạy lại bộ cài → bấm \"Gỡ Việt hóa\" (bộ cài có sẵn bản gốc của Bách khoa, không cần sao lưu).",
-      "Nếu dùng \"Verify integrity of game files\" trên Steam, Bách khoa có thể trở về tiếng Anh: chạy lại bộ cài là xong."
+      "Sau khi Steam cập nhật game hoặc bạn dùng \"Verify integrity of game files\", Bách khoa có thể trở về tiếng Anh: chạy lại bộ cài là xong.",
+      "Bộ cài chỉ thêm data\\viethoa.pack và thay các trang trong data\\encyclopedia, không đụng tới file save."
     ],
     "checksums": {
-      "VietHoa_Shogun2v1.0.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f"
+      "VietHoa_Shogun2_v1.0.2.zip": "85adb836e51db5ceec0125d23f7d91c8845c4b1434a38c0785bb442263d87983",
+      "VietHoa_Shogun2v1.0.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f",
+      "VietHoa_Shogun2_v1.0.1.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f"
     },
     "virustotal": "",
-    "github": { "repo": "nguyenhoangnhviethoa/Viet-hoa-Shogun-2", "tag": "latest" },
+    "github": {
+      "repo": "nguyenhoangnhviethoa/Viet-hoa-Shogun-2",
+      "tag": "latest"
+    },
     "downloads": [],
     "changelog": [
-      { "version": "1.0", "date": "2026-10-08", "notes": "Phát hành." }
+      {
+        "version": "1.0.2",
+        "date": "2026-10-08",
+        "notes": "Sửa 74 nhãn/câu dịch sai nghĩa: nút \"Apply now\" thành \"Áp dụng ngay\"; bảng thống kê trận ghi rõ tướng/tàu/đơn vị địch bị hạ; tăng hàng ngang/hàng dọc của đội hình; \"Tên tẩm lửa\" và \"Hỏa tiễn\" (trước đều là \"tên lửa\"); \"Độ chi tiết\" trong tùy chọn đồ họa; một số nhãn chơi mạng."
+      },
+      {
+        "version": "1.0.1",
+        "date": "2026-10-08",
+        "notes": "Phát hành lần đầu."
+      }
     ],
-    "screenshots": []
+    "screenshots": [
+      "assets/shots/total-war-shogun-2-1.jpg",
+      "assets/shots/total-war-shogun-2-2.jpg",
+      "assets/shots/total-war-shogun-2-3.jpg"
+    ]
   },
   {
     "id": "the-witcher-3-remastered",

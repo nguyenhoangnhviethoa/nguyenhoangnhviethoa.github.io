@@ -331,6 +331,9 @@
             ${g.features && g.features.length ? `<section class="g-sec"><h2>Đã dịch những gì</h2>
               <ul class="g-feat">${g.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul></section>` : ""}
 
+            ${g.limits && g.limits.length ? `<section class="g-sec"><h2>Chưa dịch / giới hạn</h2>
+              <div class="notes">${g.limits.map(n => `<p>${esc(n)}</p>`).join("")}</div></section>` : ""}
+
             ${shots.length ? `<section class="g-sec" id="anh"><h2>Ảnh trong game <span class="muted">(${shots.length})</span></h2>
               <div class="g-shots">${shots.map((s, i) =>
                 `<button class="shot" data-i="${i}" aria-label="Phóng to ảnh ${i + 1}"><img src="${esc(s)}" alt="Ảnh ${i + 1} trong game ${esc(g.title)}" loading="${i ? "lazy" : "eager"}"></button>`).join("")}
@@ -347,7 +350,6 @@
                 ${g.virustotal ? `<div class="row"><span>VirusTotal</span><b><a href="${esc(g.virustotal)}" target="_blank" rel="noopener">Xem kết quả quét</a></b></div>` : ""}
               </div></section>` : ""}
 
-            ${gh && gh.body && gh.body.replace(/\(?https?:\/\/\S+\)?/g, "").replace(/[#*_>\-\s]/g, "").length > 20 ? `<section class="g-sec"><h2>Ghi chú bản phát hành ${esc(gh.tag)}</h2><div class="g-notes">${esc(gh.body)}</div></section>` : ""}
 
             ${g.changelog && g.changelog.length ? `<section class="g-sec"><h2>Lịch sử cập nhật</h2>
               <div class="log">${g.changelog.map(c => `<div><b>v${esc(c.version)}</b> <span class="muted">· ${fmtDate(c.date)}</span><br>${esc(c.notes)}</div>`).join("")}</div></section>` : ""}
