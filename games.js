@@ -215,8 +215,7 @@ window.GAMES = [
       "Lồng tiếng vẫn là tiếng Anh (chỉ dịch chữ và phụ đề).",
       "Tên nhân vật, địa danh, vật phẩm, nhiệm vụ giữ tiếng Anh theo quy ước.",
       "Một số câu giữ nguyên: tiếng Elder, câu ngân nga, danh sách người làm game, điều khoản pháp lý, 21 câu mà bản Remaster đã đổi nội dung tiếng Anh.",
-      "Thoại vặt trên đường (dân nói với nhau) chưa soát hết từng câu.",
-      "Bản 1.5.2 đã kiểm thử cài/gỡ trên bản sao file game (v5.01 và v5.00c). Các câu sửa đợt 4 chưa được xem lại trực tiếp trong game."
+      "Thoại vặt trên đường (dân nói với nhau) chưa soát hết từng câu."
     ]
   }
 ];
