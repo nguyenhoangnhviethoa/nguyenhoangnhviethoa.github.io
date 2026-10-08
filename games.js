@@ -11,7 +11,7 @@ window.SITE = {
   author: "Trường",
   // Để trống "" thì nút tương ứng tự ẩn
   github: "https://github.com/nguyenhoangnhviethoa",
-  facebook: "",
+  facebook: "https://www.facebook.com/profile.php?id=61586904953797",
   discord: "",
   email: "",
   // Ủng hộ (tùy chọn) — để trống cả qr và bank thì ẩn khối ủng hộ

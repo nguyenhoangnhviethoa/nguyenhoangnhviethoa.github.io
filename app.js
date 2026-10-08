@@ -370,7 +370,8 @@
                   ? downloads.map(d => `<a class="btn" href="${esc(d.url)}">⬇ ${esc(d.label)}</a>${d.note ? `<small>${esc(d.note)}</small>` : ""}`).join("")
                   : `<a class="btn" aria-disabled="true">Chưa phát hành</a>`}
                 <button class="btn btn-ghost btn-sm" data-share>🔗 Sao chép link game</button>
-                ${g.github && g.github.repo ? `<a class="btn btn-ghost btn-sm" href="https://github.com/${esc(g.github.repo)}/issues" target="_blank" rel="noopener">Báo lỗi dịch</a>` : ""}
+                ${SITE.facebook ? `<a class="btn btn-ghost btn-sm" href="${esc(SITE.facebook)}" target="_blank" rel="noopener">💬 Báo lỗi / góp ý qua Facebook</a>` : ""}
+                ${g.github && g.github.repo ? `<a class="btn btn-ghost btn-sm" href="https://github.com/${esc(g.github.repo)}/issues" target="_blank" rel="noopener">Báo lỗi trên GitHub</a>` : ""}
               </div>
             </div>
             ${donateHtml(true)}
