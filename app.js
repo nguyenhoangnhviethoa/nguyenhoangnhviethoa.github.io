@@ -145,13 +145,77 @@
     });
   }
   /* Nền động toàn trang: đốm sáng trôi + tàn lửa (chèn 1 lần) */
-  (function pageBg() {
-    if (document.querySelector(".bg-fx")) return;
-    const bg = document.createElement("div");
-    bg.className = "bg-fx"; bg.setAttribute("aria-hidden", "true");
-    bg.innerHTML = '<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i><canvas class="embers page"></canvas>';
-    document.body.prepend(bg);
-  })();
+  /* ---------- Nền động toàn trang (4 kiểu) ----------
+     Kiểu mặc định đặt ở SITE.background trong games.js: "anh" | "nui" | "neon" | "cucquang"
+     Thêm ?nen vào cuối link (vd index.html?nen) để hiện bảng chọn thử nền. */
+  const BG_MODES = { anh: "Ảnh game", nui: "Núi sương", neon: "Lưới neon", cucquang: "Cực quang" };
+  const bgPicker = new URLSearchParams(location.search).has("nen");
+  let bgMode = SITE.background || "anh";
+  if (bgPicker) { try { bgMode = localStorage.getItem("nh-bg") || bgMode; } catch (_) {} }
+  if (!BG_MODES[bgMode]) bgMode = "anh";
+
+  function bgImages() {
+    const pid = document.body.dataset.id || new URLSearchParams(location.search).get("id");
+    const g = pid && GAMES.find(x => x.id === pid);
+    const list = g ? [g.hero, ...(g.screenshots || []), g.cover] : GAMES.flatMap(x => [x.hero, ...(x.screenshots || [])]);
+    return [...new Set(list.filter(Boolean))].slice(0, 8).map(asset);
+  }
+  function mountains() {
+    // 4 lớp núi, lớp gần tối và cao hơn; tạo bằng nhiễu đơn giản (không dùng ảnh ngoài)
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    const layers = [["#2a2140", 520, 90], ["#1d1830", 600, 110], ["#141224", 680, 130], ["#0d0c18", 760, 150]];
+    return layers.map(([c, base, amp], i) => {
+      let d = `M0 900 L0 ${base}`;
+      for (let x = 0; x <= 1600; x += 40) { const y = base - Math.abs(Math.sin(x / (160 + i * 40) + i) * amp) - rnd() * amp * .35; d += ` L${x} ${y.toFixed(0)}`; }
+      return `<path class="m m${i}" d="${d} L1600 900 Z" fill="${c}"/>`;
+    }).join("");
+  }
+  function buildBg() {
+    let bg = document.querySelector(".bg-fx");
+    if (!bg) { bg = document.createElement("div"); bg.setAttribute("aria-hidden", "true"); document.body.prepend(bg); }
+    bg.className = "bg-fx mode-" + bgMode;
+    let inner = "";
+    if (bgMode === "anh") {
+      const imgs = bgImages();
+      inner = `<div class="bg-slides">${imgs.map((u, i) => `<div class="bg-slide${i ? "" : " on"}" style="background-image:url('${esc(u)}')"></div>`).join("")}</div><div class="bg-shade"></div>`;
+    } else if (bgMode === "nui") {
+      inner = `<div class="sky"></div><div class="sun"></div>
+        <svg class="mtn" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">${mountains()}</svg>
+        <div class="fog f1"></div><div class="fog f2"></div><div class="fog f3"></div>`;
+    } else if (bgMode === "neon") {
+      inner = `<div class="neon-sky"></div><div class="neon-sun"></div><div class="neon-grid"></div><div class="scan"></div>`;
+    } else {
+      inner = `<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i><div class="aurora"></div>`;
+    }
+    bg.innerHTML = inner + `<canvas class="embers page"></canvas>`;
+    if (bgMode === "anh") {
+      const sl = bg.querySelectorAll(".bg-slide"); let k = 0;
+      clearInterval(buildBg.t);
+      if (sl.length > 1 && !reduce) buildBg.t = setInterval(() => { sl[k].classList.remove("on"); k = (k + 1) % sl.length; sl[k].classList.add("on"); }, 9000);
+    }
+    embers();
+  }
+  // Núi sương: lớp xa di chuyển chậm hơn lớp gần khi cuộn (parallax)
+  addEventListener("scroll", () => {
+    if (bgMode !== "nui" || reduce) return;
+    const y = scrollY;
+    document.querySelectorAll(".bg-fx .m").forEach((m, i) => { m.style.transform = `translateY(${-(y * (0.02 + i * 0.025)).toFixed(1)}px)`; });
+  }, { passive: true });
+
+  function picker() {
+    if (!bgPicker) return;
+    const box = document.createElement("div");
+    box.className = "bg-picker";
+    box.innerHTML = `<b>Chọn nền</b>` + Object.entries(BG_MODES).map(([k, v]) => `<button data-bg="${k}" aria-pressed="${k === bgMode}">${v}</button>`).join("") +
+      `<small>Chỉ bạn thấy bảng này (link có ?nen)</small>`;
+    document.body.append(box);
+    box.addEventListener("click", e => {
+      const b = e.target.closest("[data-bg]"); if (!b) return;
+      bgMode = b.dataset.bg; try { localStorage.setItem("nh-bg", bgMode); } catch (_) {}
+      box.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+      buildBg();
+    });
+  }
   /* Ánh sáng đi theo con trỏ trên thẻ / ô */
   document.addEventListener("pointermove", e => {
     const el = e.target.closest && e.target.closest(".card, .info, .story-card, .g-feat li, .feat, .donate-card, .steps li, .story-points li, .stat, details");
@@ -174,6 +238,7 @@
     document.addEventListener("click", e => { if (!e.target.closest(".topbar")) setOpen(false); });
   }
 
+  buildBg(); picker();
   if (PAGE === "game") gamePage(); else homePage();
 
   /* =========================================================

@@ -9,6 +9,8 @@ window.SITE = {
   url: "https://nguyenhoangnhviethoa.github.io",
   tagline: "Game hay, chơi bằng tiếng Việt — miễn phí cho mọi người",
   author: "Trường",
+  // Kiểu nền: "anh" (ảnh game) | "nui" (núi sương) | "neon" (lưới neon) | "cucquang" (cực quang)
+  background: "cucquang",
   // Để trống "" thì nút tương ứng tự ẩn
   github: "https://github.com/nguyenhoangnhviethoa",
   facebook: "https://www.facebook.com/profile.php?id=61586904953797",
@@ -119,51 +121,102 @@ window.GAMES = [
     "title": "The Witcher 3: Wild Hunt - Remastered",
     "subtitle": "",
     "cover": "assets/covers/the-witcher-3-remastered.jpg",
-    "colors": ["#1b2a4a", "#e63946"],
-    "genres": ["Nhập vai", "Hành động", "Thế giới mở"],
+    "colors": [
+      "#1b2a4a",
+      "#e63946"
+    ],
+    "genres": [
+      "Nhập vai",
+      "Hành động",
+      "Thế giới mở"
+    ],
     "platform": "Steam / Epic / GOG",
     "engine": "",
-    "gameVersion": "V5.00C",
-    "patchVersion": "1.0.1",
+    "gameVersion": "V5.01",
+    "patchVersion": "1.5.2",
     "status": "done",
     "progress": 100,
     "updated": "2026-10-08",
-    "size": "10MB",
-    "description": "Việt hóa The Witcher 3 bản Remastered (v5.00c), gồm cả hai bản mở rộng Hearts of Stone và Blood and Wine. Bản dịch dựa trên bản Việt hóa của Viethoagame, phần còn thiếu được dịch bổ sung bằng AI. Xưng hô được chỉnh lại theo quan hệ giữa các nhân vật. Có font tiếng Việt đầy đủ dấu và bộ cài tự động, gỡ ra là trả lại game gốc. Phát hành miễn phí.",
+    "size": "9,6 MB",
+    "description": "Bản Việt hóa cho The Witcher 3 bản Remaster, dựa trên bản Việt hóa cộng đồng của Viethoagame và dịch bổ sung phần còn thiếu: giao diện mới của bản Remaster, nhiều nhật ký/thư/sách Blood and Wine, phụ đề video. Xưng hô được soát theo quan hệ nhân vật: Geralt gọi Vesemir là \"thầy\", Ciri gọi Geralt là \"cha\", Yennefer và Triss \"anh – em\", dân thường gọi Geralt là \"anh\", người hầu và hiệp sĩ Toussaint gọi \"ngài\".",
     "features": [
-      "Cốt truyện & hội thoại (game gốc + Hearts of Stone + Blood and Wine)",
-      "Nhiệm vụ, nhật ký, thư từ, sách",
-      "Giao diện, menu, cài đặt của bản Remastered (Mod, chụp ảnh, trợ năng…)",
-      "Kỹ năng và hướng dẫn",
-      "Phụ đề video: mở đầu, giữa chương, hồi tưởng, kết thúc",
-      "Font tiếng Việt có dấu",
-      "Giữ nguyên tiếng Anh: tên riêng, tên vật phẩm, tên nhiệm vụ"
+      "Chữ trong game: 88.929/96.915 chuỗi (~1,09 triệu từ tiếng Anh) đã có tiếng Việt: 68.918 chuỗi lấy từ bản Việt hóa của Viethoagame (có sửa xưng hô, lỗi nghĩa); 20.008 chuỗi (~300.000 từ) dịch bổ sung bằng AI rồi soát lại",
+      "Gồm: thoại và lựa chọn hội thoại, nhiệm vụ, nhật ký, thư, sách, bảng thông báo, vật phẩm và kỹ năng (tên riêng giữ tiếng Anh), giao diện và menu mới của bản Remaster (cài đặt đồ họa, chụp ảnh, lưu/tải, trợ năng, menu mod), màn hình tải, Gwent.",
+      "Hai bản mở rộng: Hearts of Stone và Blood and Wine (bổ sung các đoạn mà bản cũ còn tiếng Anh).",
+      "Phụ đề video: video kể chuyện giữa các chương, đoạn kết, hồi tưởng, đoạn mở đầu (cả phụ đề rời lẫn phụ đề nhúng trong video).",
+      "Font tiếng Việt: vá font giao diện để hiện đủ dấu.",
+      "Soát chất lượng: Xưng hô theo quan hệ nhân vật chính, có công cụ kiểm tra theo người nói, kể cả lựa chọn hội thoại; Soát 262 lá thư, sửa 96 lá sai quan hệ người gửi – người nhận; Đợt 4 (bản 1.5.1) sửa 1.318 câu: 878 câu: dân thường gọi Geralt là \"ngươi\" → \"anh\"/\"ngài\"; 226 câu: \"chúng ta\" ↔ \"chúng tôi\"/\"bọn ta\"; 190 câu: dịch sai nghĩa hoặc thành ngữ dịch theo nghĩa đen; 24 câu: nhãn giao diện sai nghĩa; Quét toàn bộ: không lẫn chữ Trung/Nhật/Hàn, không lỗi thẻ định dạng"
     ],
     "install": [
-      "Tải file zip và giải nén",
-      "Thoát game và launcher (Steam/Epic/GOG)",
-      "Chạy CaiVietHoa_Witcher3.exe (Windows cảnh báo thì bấm More info → Run anyway)",
-      "Bấm \"Cài Việt hóa\" (bộ cài tự tìm thư mục game, không thấy thì bấm \"Đổi…\" để chọn)",
-      "Vào game: Options → Language → Text language = English (bản Việt hóa ghi đè lên gói chữ tiếng Anh, nên phải chọn English mới hiện tiếng Việt)",
-      "Game cập nhật hoặc Verify thì chạy lại bộ cài; muốn trả tiếng Anh thì bấm \"Gỡ Việt hóa\""
+      "Thoát hẳn game.",
+      "Giải nén, chạy CaiVietHoa_Witcher3.exe. Bộ cài tự tìm thư mục game; không thấy thì bấm \"Đổi…\" để chọn.",
+      "Bấm CÀI VIỆT HÓA, đợi 100%.",
+      "Vào game: Options → Language → Text language = English.",
+      "Game cập nhật hoặc Verify thì chạy bộ cài lần nữa.",
+      "Muốn gỡ: mở bộ cài → \"Gỡ Việt hóa\"."
     ],
     "installNotes": [
       "Bộ cài chỉ thay file chữ và font, không đụng tới file game khác; bấm \"Gỡ Việt hóa\" là trả lại nguyên bản.",
       "Nếu vào game vẫn thấy tiếng Anh: kiểm tra lại Text language = English và chắc chắn bộ cài đã trỏ đúng thư mục game đang chơi (máy có cả bản Steam lẫn GOG dễ chọn nhầm)."
     ],
-    // SHA256 của file trên GitHub Releases, theo tên file (PowerShell: Get-FileHash ten-file.zip)
     "checksums": {
       "VietHoa_Witcher3_Remasterv1.0.1.zip": "9b66aab01f24cb92213bfe496c7364d5d449c58a93c7b78c44685dd886ad5da4",
-      "VietHoa_Witcher3_Remasterv1.0.zip": "bd8e68fb6a544466162d2c7820d4b0e51fcad866af97c7590b680b7a38815138"
+      "VietHoa_Witcher3_Remasterv1.0.zip": "bd8e68fb6a544466162d2c7820d4b0e51fcad866af97c7590b680b7a38815138",
+      "VietHoa_Witcher3_v1.5.2.zip": "0cf5fbb080fb02b28b01d043e5100435af7872b0b5ae8af6ca2d56900ef926ee"
     },
-    // Link kết quả quét VirusTotal (tùy chọn): upload file .zip lên virustotal.com rồi dán link vào đây
     "virustotal": "",
-    "github": { "repo": "nguyenhoangnhviethoa/Viet-hoa-The-Witcher-3", "tag": "latest" },
+    "github": {
+      "repo": "nguyenhoangnhviethoa/Viet-hoa-The-Witcher-3",
+      "tag": "latest"
+    },
     "downloads": [],
     "changelog": [
-      { "version": "1.0.1", "date": "2026-10-08", "notes": "Sửa lỗi dịch, chỉnh lại câu chữ." },
-      { "version": "1.0", "date": "2026-10-04", "notes": "Phát hành." }
+      {
+        "version": "1.5.2",
+        "date": "2026-10-08",
+        "notes": "Hỗ trợ game v5.01. Dịch các câu mới/đổi của v5.01 (mô tả kỹ năng Giáp vừa, khiên Quen phản sát thương, chụp ảnh, nhặt đồ nhanh…); sửa 13 câu bị hỏng thẻ hoặc sai hẳn nội dung (hướng dẫn rút kiếm bạc, mô tả kỹ năng lựu đạn/adrenaline, chữ in nghiêng/màu trong Gwent, bách khoa). Hộp thoại khi game khác phiên bản nói rõ game mới hơn/cũ hơn, vẫn cài và chơi được, gặp lỗi thì nhắn qua trang Việt hóa."
+      },
+      {
+        "version": "1.5.1",
+        "date": "2026-10-08",
+        "notes": "Sửa 1.318 câu: Dân thường, thương nhân, người được cứu gọi Geralt là \"anh\"/\"ngài\" thay vì \"ngươi\"; \"chúng ta\"/\"chúng tôi\"/\"bọn ta\" đúng theo người nghe; Sửa câu dịch ngược nghĩa và thành ngữ (vd \"keep it down\", \"Va fail\", \"broken on the wheel\"); Sửa nhãn giao diện sai nghĩa (\"Tay cầm đã ngắt kết nối\", \"Lơ là phòng bị\", \"Nữ Công tước\"…)"
+      },
+      {
+        "version": "1.5",
+        "date": "2026-10-06",
+        "notes": "Sửa 96 lá thư sai quan hệ người gửi – người nhận; sửa cách Geralt xưng hô với Vesemir (\"con – thầy\")."
+      },
+      {
+        "version": "1.4",
+        "date": "2026-10-04",
+        "notes": "Thêm phụ đề nhúng trong video (mở đầu game, đoạn kết, hồi tưởng)."
+      },
+      {
+        "version": "1.3",
+        "date": "2026-10-04",
+        "notes": "Thêm phụ đề video (video kể chuyện giữa chương)."
+      },
+      {
+        "version": "1.2",
+        "date": "2026-10-04",
+        "notes": "Dịch bổ sung 1.464 câu còn tiếng Anh (menu Remaster, nhật ký/thư/sách Blood and Wine); cài đè được bản Việt hóa cũ."
+      },
+      {
+        "version": "1.0–1.1",
+        "date": "2026-10-04",
+        "notes": "Bộ cài một nút bấm, vá font tiếng Việt; giao diện mới, thanh tiến trình, tự tìm thư mục game."
+      }
     ],
-    "screenshots": ["assets/shots/the-witcher-3-1.jpg", "assets/shots/the-witcher-3-2.jpg"]
+    "screenshots": [
+      "assets/shots/the-witcher-3-1.jpg",
+      "assets/shots/the-witcher-3-2.jpg"
+    ],
+    "limits": [
+      "Lồng tiếng vẫn là tiếng Anh (chỉ dịch chữ và phụ đề).",
+      "Tên nhân vật, địa danh, vật phẩm, nhiệm vụ giữ tiếng Anh theo quy ước.",
+      "Một số câu giữ nguyên: tiếng Elder, câu ngân nga, danh sách người làm game, điều khoản pháp lý, 21 câu mà bản Remaster đã đổi nội dung tiếng Anh.",
+      "Thoại vặt trên đường (dân nói với nhau) chưa soát hết từng câu.",
+      "Bản 1.5.2 đã kiểm thử cài/gỡ trên bản sao file game (v5.01 và v5.00c). Các câu sửa đợt 4 chưa được xem lại trực tiếp trong game."
+    ]
   }
 ];

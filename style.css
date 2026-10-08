@@ -501,3 +501,105 @@ details summary:hover { color: var(--gold); padding-left: 6px; }
 
 @media (hover: none) { .bg-fx .orb { opacity: .4; } }
 @media (prefers-reduced-motion: reduce) { .bg-fx .orb { animation: none; } .bg-fx canvas { display: none; } }
+
+/* =========================================================
+   4 KIỂU NỀN — chọn ở SITE.background trong games.js
+   ========================================================= */
+.bg-fx { background: var(--bg); }
+.bg-fx::after { z-index: 3; }
+.bg-fx canvas.embers.page { z-index: 4; }
+
+/* 1) Ảnh game: ảnh trong game đổi dần, phóng chậm, phủ tối */
+.bg-slides { position: absolute; inset: -4%; }
+.bg-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.04);
+  filter: saturate(1.15) blur(2px); transition: opacity 2.4s ease; }
+.bg-slide.on { opacity: 1; animation: slideZoom 18s ease-out forwards; }
+@keyframes slideZoom { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.16) translate(-1.5%, -1%); } }
+.bg-shade { position: absolute; inset: 0; z-index: 2; background:
+  radial-gradient(120% 90% at 50% 40%, #0d0f1499 0%, #0d0f14d9 60%, #0d0f14f2 100%),
+  linear-gradient(180deg, #0d0f14cc, #0d0f1466 30%, #0d0f14b3 100%); }
+
+/* 2) Núi sương: trời hoàng hôn, mặt trời đỏ, núi nhiều lớp, sương trôi */
+.mode-nui .sky { position: absolute; inset: 0; background: linear-gradient(180deg, #120f22 0%, #2b1835 38%, #5a2338 62%, #8a3b2e 78%, #1a1426 100%); }
+.mode-nui .sun { position: absolute; left: 62%; top: 34%; width: 28vmin; height: 28vmin; border-radius: 50%;
+  background: radial-gradient(circle, #ff6a3d 0%, #e63946 55%, #e6394600 72%); box-shadow: 0 0 140px 40px #e6394655; animation: sunBreath 8s ease-in-out infinite; }
+@keyframes sunBreath { 50% { box-shadow: 0 0 190px 70px #ff6a3d55; transform: scale(1.04); } }
+.mode-nui .mtn { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; }
+.mode-nui .mtn .m { transition: transform .1s linear; }
+.mode-nui .fog { position: absolute; left: -50%; width: 200%; height: 30%; opacity: .5; filter: blur(30px);
+  background: repeating-radial-gradient(ellipse 22% 60% at 20% 50%, #c9b8d855, transparent 70%); }
+.mode-nui .f1 { bottom: 26%; animation: fog 60s linear infinite; }
+.mode-nui .f2 { bottom: 12%; opacity: .4; animation: fog 85s linear infinite reverse; }
+.mode-nui .f3 { bottom: -6%; opacity: .6; animation: fog 45s linear infinite; }
+@keyframes fog { to { transform: translateX(25%); } }
+.mode-nui::before { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, #0d0f1499, #0d0f1440 40%, #0d0f14a6); }
+
+/* 3) Lưới neon: mặt trời neon, lưới phối cảnh chạy về phía trước, vạch quét */
+.mode-neon .neon-sky { position: absolute; inset: 0; background: linear-gradient(180deg, #0b0718 0%, #1c0b33 45%, #3a0d3f 60%, #0b0718 61%); }
+.mode-neon .neon-sun { position: absolute; left: 50%; top: 22%; width: 34vmin; height: 34vmin; transform: translateX(-50%); border-radius: 50%;
+  background: linear-gradient(180deg, #ffd166 0%, #ff6b3d 45%, #e63946 75%);
+  -webkit-mask: repeating-linear-gradient(180deg, #000 0 14px, transparent 14px 20px); mask: repeating-linear-gradient(180deg, #000 0 14px, transparent 14px 20px);
+  box-shadow: 0 0 120px #ff6b3d88; filter: drop-shadow(0 0 40px #ff3d7f); opacity: .9; }
+.mode-neon .neon-grid { position: absolute; left: -50%; right: -50%; bottom: -10%; height: 60%; transform: perspective(380px) rotateX(62deg); transform-origin: top;
+  background-image: linear-gradient(#ff3d7fcc 2px, transparent 2px), linear-gradient(90deg, #ff3d7fcc 2px, transparent 2px);
+  background-size: 70px 70px; animation: gridRun 2.2s linear infinite;
+  -webkit-mask: linear-gradient(180deg, transparent, #000 35%); mask: linear-gradient(180deg, transparent, #000 35%);
+  filter: drop-shadow(0 0 6px #ff3d7f); }
+@keyframes gridRun { to { background-position: 0 70px; } }
+.mode-neon .scan { position: absolute; inset: 0; z-index: 2; background: repeating-linear-gradient(180deg, #ffffff08 0 1px, transparent 1px 4px), linear-gradient(180deg, #0d0f1466, #0d0f14b3); }
+
+/* 4) Cực quang: dải sáng màu uốn lượn mạnh */
+.mode-cucquang .orb { opacity: .9; filter: blur(70px); }
+.mode-cucquang .aurora { position: absolute; inset: -20%; opacity: .55; mix-blend-mode: screen; filter: blur(60px);
+  background: conic-gradient(from 0deg at 50% 50%, #e63946, #ff8c3c, #ffd166, #3ccf8e, #5aa9ff, #7b5cff, #e63946);
+  animation: auroraSpin 40s linear infinite; -webkit-mask: radial-gradient(closest-side, #000 30%, transparent); mask: radial-gradient(closest-side, #000 30%, transparent); }
+@keyframes auroraSpin { to { transform: rotate(360deg); } }
+.mode-cucquang::before { content: ""; position: absolute; inset: 0; z-index: 2; background: #0d0f1480; }
+.bg-fx:not(.mode-cucquang) .orb { display: none; }
+
+/* Nội dung nổi trên nền: các ô hơi trong để thấy nền phía sau */
+.card, .info, .g-feat li, .steps li, details, .story-card, .donate-card, .stat, .search, select, .chip { backdrop-filter: blur(8px); }
+.card, .g-feat li, .steps li, details, .info { background-color: #181c27d9; }
+
+/* Bảng chọn nền (chỉ hiện khi link có ?nen) */
+.bg-picker { position: fixed; left: 16px; bottom: 16px; z-index: 300; display: grid; gap: 6px; padding: 12px; border-radius: 14px;
+  background: #0d0f14e6; border: 1px solid #ffd16655; box-shadow: 0 12px 40px #000c; backdrop-filter: blur(10px); font-size: 14px; }
+.bg-picker b { color: var(--gold); }
+.bg-picker button { font: inherit; color: var(--text); background: #ffffff0d; border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; text-align: left; }
+.bg-picker button[aria-pressed="true"] { background: linear-gradient(135deg, var(--red), #ff6b3d); border-color: transparent; }
+.bg-picker small { color: var(--muted); font-size: 11.5px; }
+@media (prefers-reduced-motion: reduce) { .bg-slide.on, .mode-nui .fog, .neon-grid, .aurora { animation: none !important; } }
+
+/* --- tăng độ đậm cho 4 kiểu nền --- */
+.bg-slide { filter: saturate(1.25); }
+.bg-shade { background:
+  radial-gradient(110% 80% at 50% 45%, #0d0f1459 0%, #0d0f14a6 65%, #0d0f14e0 100%),
+  linear-gradient(180deg, #0d0f1499, transparent 35%, #0d0f1480 100%); }
+.mode-nui::before { background: linear-gradient(180deg, #0d0f1466, transparent 45%, #0d0f1440); }
+.mode-nui .m0 { fill: #4a3466; } .mode-nui .m1 { fill: #36264f; } .mode-nui .m2 { fill: #231a38; } .mode-nui .m3 { fill: #130f22; }
+.mode-nui .fog { opacity: .75; }
+.mode-neon .scan { background: repeating-linear-gradient(180deg, #ffffff0a 0 1px, transparent 1px 4px), linear-gradient(180deg, #0d0f1433, #0d0f1466); }
+.mode-neon .neon-grid { height: 70%; }
+.mode-cucquang::before { background: #0d0f1426; }
+.mode-cucquang .aurora { opacity: .8; }
+/* các khối lớn trong suốt hơn để nhìn thấy nền */
+.story-card { background: radial-gradient(600px 300px at 0% 0%, #e6394624, transparent 70%), #141821b8 !important; backdrop-filter: blur(10px); }
+.card, .g-feat li, .steps li, details, .info, .donate-card, .story-points li { background-color: #141821bf !important; }
+
+/* =========================================================
+   CỰC QUANG — giữ màu ở hai bên, làm dịu vùng giữa để chữ dễ đọc
+   ========================================================= */
+.mode-cucquang .aurora { opacity: .7; filter: blur(80px) saturate(.9); }
+.mode-cucquang::before { background:
+  linear-gradient(90deg, transparent 0%, #0d0f14b3 18%, #0d0f14cc 50%, #0d0f14b3 82%, transparent 100%); }
+@media (max-width: 900px) { .mode-cucquang::before { background: #0d0f14bf; } }
+
+/* Các khối có chữ: nền đặc hơn một chút */
+.card, .g-feat li, .steps li, details, .info, .donate-card, .story-points li { background-color: #141821e0 !important; }
+.story-card { background: radial-gradient(600px 300px at 0% 0%, #e639461f, transparent 70%), #141821e6 !important; }
+.search, select, .chip:not([aria-selected="true"]) { background-color: #141821e6; }
+
+/* Chữ nằm trực tiếp trên nền: thêm bóng mờ để tách khỏi màu phía sau */
+.sec-head h2, .section h2, .g-sec h2, .eyebrow, .lead, .g-desc, .section > p, .muted, .g-sec > p, .small,
+.story-text p, .g-head h1, .g-sub, .footer { text-shadow: 0 1px 2px #000c, 0 0 18px #0d0f14; }
+.g-desc, .section > p { color: #e6e8ee; }
