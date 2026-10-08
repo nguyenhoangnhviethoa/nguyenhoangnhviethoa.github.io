@@ -22,6 +22,15 @@ const GAMES = (ctx.window.GAMES || []).filter(g => !g.sample);
 const BASE = (SITE.url || "").replace(/\/+$/, "");
 if (!BASE) { console.error("games.js: thiếu SITE.url (vd https://ten.github.io)"); process.exit(1); }
 
+/* Số phiên bản theo nội dung file: mỗi lần games.js/app.js/style.css đổi,
+   đường dẫn đổi theo (games.js?v=abc123) nên trình duyệt buộc tải bản mới,
+   không dùng bản cũ đã lưu tạm (GitHub Pages cho lưu 10 phút). */
+const crypto = require("crypto");
+const H = {};
+for (const f of ["games.js", "app.js", "style.css"]) H[f] = crypto.createHash("sha1").update(fs.readFileSync(path.join(ROOT, f))).digest("hex").slice(0, 8);
+const ASSET_RE = /((?:src|href)=")((?:\.\.\/|\/)?)(games\.js|app\.js|style\.css)(?:\?v=[0-9a-f]*)?"/g;
+const verAssets = html => html.replace(ASSET_RE, (m, a, pre, f) => `${a}${pre}${f}?v=${H[f]}"`);
+
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const abs = p => !p ? "" : /^https?:/.test(p) ? p : BASE + "/" + p.replace(/^\/+/, "");
 const STATUS = { done: "Hoàn thành", beta: "Thử nghiệm", wip: "Đang dịch" };
@@ -139,7 +148,14 @@ const outDir = path.join(ROOT, "game");
 fs.mkdirSync(outDir, { recursive: true });
 // xóa trang của game đã bị gỡ khỏi games.js
 for (const f of fs.readdirSync(outDir)) if (f.endsWith(".html") && !GAMES.some(g => g.id + ".html" === f)) fs.unlinkSync(path.join(outDir, f));
-for (const g of GAMES) fs.writeFileSync(path.join(outDir, g.id + ".html"), page(g));
+for (const g of GAMES) fs.writeFileSync(path.join(outDir, g.id + ".html"), verAssets(page(g)));
+// gắn ?v= vào các trang viết tay
+for (const f of ["index.html", "game.html", "404.html", "them-game.html"]) {
+  const fp = path.join(ROOT, f);
+  if (!fs.existsSync(fp)) continue;
+  const old = fs.readFileSync(fp, "utf8"), neu = verAssets(old);
+  if (neu !== old) fs.writeFileSync(fp, neu);
+}
 
 const today = new Date().toISOString().slice(0, 10);
 const urls = [{ loc: BASE + "/", lastmod: GAMES.map(g => g.updated || "").sort().pop() || today, priority: "1.0" },
