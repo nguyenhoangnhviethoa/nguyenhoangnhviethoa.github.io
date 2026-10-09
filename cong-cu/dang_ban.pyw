@@ -422,6 +422,11 @@ def chuan_bi(web, thu_muc_ban_dich, id_game=None, repo=None, phien_ban_game=None
             raise LoiDung("Game mới cần mã (id) dạng chữ thường-gạch-ngang, vd: total-war-shogun-2")
         if not repo:
             raise LoiDung("Game mới cần tên repo GitHub, vd: nguyenhoangnhviethoa/Viet-hoa-Shogun-2")
+        _tt = lambda n: re.sub(r"_?v?\d[\d.]*\.zip$", "", n, flags=re.I).lower()
+        for x in ds:
+            if any(_tt(k) == _tt(tt["zip_ten"]) for k in (x[4].get("checksums") or {})):
+                raise LoiDung(f"File {tt['zip_ten']} là bản mới của game đã có trên web: \"{x[1]}\".\n"
+                              f"Ở mục 3, chọn game đó thay vì \"＋ Game mới\" (nếu không sẽ thành 2 game trùng nhau).")
         game = tao_game_moi(tt, id_game, repo, phien_ban_game or "", ngay)
         game["checksums"][tt["zip_ten"]] = tt["sha256"]
         game["changelog"] = sorted(tt["lich_su"], key=lambda c: so_phien_ban(c["version"]), reverse=True)
@@ -681,7 +686,12 @@ def giao_dien():
         lb_pb.config(text="\n".join(dong), fg=CHU if tt["khop"] else VANG)
         ten = [x[1] for x in trang["ds"]] + ["＋ Game mới"]
         cb["values"] = ten
-        goi_y = [x[1] for x in trang["ds"] if tt["ten_game"] and (tt["ten_game"].lower() in (x[1] or "").lower() or (x[1] or "").lower() in tt["ten_game"].lower())]
+        # Nhận game theo tên file zip trước (vd VietHoa_Witcher3_v1.5.3.zip khớp game đã có VietHoa_Witcher3_v1.5.2.zip),
+        # vì tên game trong THONG_TIN_WEB.md có thể viết khác tên trên web.
+        tien_to = re.sub(r"_?v?\d[\d.]*\.zip$", "", tt["zip_ten"], flags=re.I).lower()
+        goi_y = [x[1] for x in trang["ds"] if tien_to and any(re.sub(r"_?v?\d[\d.]*\.zip$", "", k, flags=re.I).lower() == tien_to for k in (x[4].get("checksums") or {}))]
+        if not goi_y:
+            goi_y = [x[1] for x in trang["ds"] if tt["ten_game"] and (tt["ten_game"].lower() in (x[1] or "").lower() or (x[1] or "").lower() in tt["ten_game"].lower())]
         v_game.set(goi_y[0] if goi_y else "＋ Game mới")
         if not goi_y:
             v_id.set(re.sub(r"[^a-z0-9]+", "-", tt["ten_game"].lower().replace(":", "")).strip("-"))
