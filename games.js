@@ -38,8 +38,7 @@ window.SITE = {
          Để trống thì web tự vẽ ảnh bìa từ 2 màu trong "colors".
   sample: true = dữ liệu mẫu, XÓA các game mẫu khi đưa game thật vào.
 */
-window.GAMES = [
-  {
+window.GAMES = [  {
     "id": "total-war-shogun-2",
     "title": "Total War: SHOGUN 2",
     "subtitle": "Kèm Rise of the Samurai và Fall of the Samurai",
@@ -133,12 +132,12 @@ window.GAMES = [
     "platform": "Steam / Epic / GOG",
     "engine": "",
     "gameVersion": "V5.01",
-    "patchVersion": "1.5.2",
+    "patchVersion": "1.5.3",
     "status": "done",
     "progress": 100,
-    "updated": "2026-10-08",
+    "updated": "2026-10-09",
     "size": "9,6 MB",
-    "description": "Bản Việt hóa cho The Witcher 3 bản Remaster, dựa trên bản Việt hóa cộng đồng của Viethoagame và dịch bổ sung phần còn thiếu: giao diện mới của bản Remaster, nhiều nhật ký/thư/sách Blood and Wine, phụ đề video. Xưng hô được soát theo quan hệ nhân vật: Geralt gọi Vesemir là \"thầy\", Ciri gọi Geralt là \"cha\", Yennefer và Triss \"anh – em\", dân thường gọi Geralt là \"anh\", người hầu và hiệp sĩ Toussaint gọi \"ngài\".",
+    "description": "Bản Việt hóa cho The Witcher 3 bản Remaster, dựa trên bản Việt hóa cộng đồng của Viethoagame và dịch bổ sung phần còn thiếu: giao diện mới của bản Remaster, nhiều nhật ký/thư/sách Blood and Wine, phụ đề video. Xưng hô được soát theo quan hệ nhân vật: Geralt gọi Vesemir là \"thầy\", Ciri gọi Geralt là \"cha\", Yennefer và Triss \"anh – em\", dân thường gọi Geralt là \"anh\", người hầu, trưởng làng, hiệp sĩ Toussaint gọi \"ngài\".",
     "features": [
       "Thoại, lựa chọn hội thoại, nhiệm vụ, nhật ký, thư và sách",
       "Vật phẩm, kỹ năng, bảng thông báo, Gwent (tên riêng giữ tiếng Anh)",
@@ -162,7 +161,8 @@ window.GAMES = [
     "checksums": {
       "VietHoa_Witcher3_Remasterv1.0.1.zip": "9b66aab01f24cb92213bfe496c7364d5d449c58a93c7b78c44685dd886ad5da4",
       "VietHoa_Witcher3_Remasterv1.0.zip": "bd8e68fb6a544466162d2c7820d4b0e51fcad866af97c7590b680b7a38815138",
-      "VietHoa_Witcher3_v1.5.2.zip": "0cf5fbb080fb02b28b01d043e5100435af7872b0b5ae8af6ca2d56900ef926ee"
+      "VietHoa_Witcher3_v1.5.2.zip": "0cf5fbb080fb02b28b01d043e5100435af7872b0b5ae8af6ca2d56900ef926ee",
+      "VietHoa_Witcher3_v1.5.3.zip": "2969fda80e8ec103cd5002b6749975ee3510388a63243bac48e2399c6257f75a"
     },
     "virustotal": "",
     "github": {
@@ -171,6 +171,11 @@ window.GAMES = [
     },
     "downloads": [],
     "changelog": [
+      {
+        "version": "1.5.3",
+        "date": "2026-10-09",
+        "notes": "Sửa 316 câu dùng \"thầy\" sai làm cách gọi lễ phép (bản cũ dịch \"Master witcher\" thành \"Thầy witcher\"): trưởng làng Downwarren, người hầu, lính, thương nhân, dân Toussaint gọi Geralt \"ngài\"; dân thường \"anh\"; người già \"cậu\"; trẻ con \"chú\"; \"Master Dandelion\" → \"ngài Dandelion\". Giữ \"thầy\" cho Vesemir và các thầy dạy thật. Kèm sửa vài câu dịch ngược nghĩa và lỗi chính tả."
+      },
       {
         "version": "1.5.2",
         "date": "2026-10-08",
