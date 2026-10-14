@@ -73,7 +73,8 @@
   async function loadGithub(g) {
     const repo = g.github && g.github.repo; if (!repo) return;
     const tag = (g.github.tag || "latest").trim();
-    const key = `gh:${repo}:${tag}`;
+    // gắn số phiên bản vào khóa: đăng bản mới (đổi patchVersion) là bỏ ngay dữ liệu Release cũ đã lưu tạm
+    const key = `gh:${repo}:${tag}:${g.patchVersion || ""}`;
     let data = cacheGet(key);
     if (!data) {
       try {
