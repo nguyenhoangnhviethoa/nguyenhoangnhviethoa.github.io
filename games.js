@@ -55,11 +55,11 @@ window.GAMES = [  {
     ],
     "platform": "Steam (Windows)",
     "engine": "Warscape",
-    "gameVersion": "Bản Steam tại ngày 08/10/2026 (v1.1.0, build 6262.29)",
-    "patchVersion": "1.0.2",
+    "gameVersion": "Bản Steam tại ngày 14/10/2026 (v1.1.0, build 6262.29)",
+    "patchVersion": "1.0.5",
     "status": "done",
     "progress": 100,
-    "updated": "2026-10-08",
+    "updated": "2026-10-14",
     "size": "6,3 MB",
     "description": "Bản Việt hóa đầy đủ cho Total War: SHOGUN 2 và hai bản mở rộng, có font tiếng Việt và bộ cài một nút. Văn phong theo không khí Nhật thời Chiến Quốc: cố vấn gọi người chơi là \"chúa công\", quân mình là \"quân ta\", sứ giả ngoại giao xưng hô tùy thái độ thân thiện hay thù địch. Thuật ngữ được thống nhất xuyên suốt (Sĩ khí, Tháo chạy, Danh vọng gia tộc, Thương điếm…) và đã quét máy toàn bộ để không lỗi biến, không sót chữ.",
     "features": [
@@ -89,7 +89,8 @@ window.GAMES = [  {
     "checksums": {
       "VietHoa_Shogun2_v1.0.2.zip": "85adb836e51db5ceec0125d23f7d91c8845c4b1434a38c0785bb442263d87983",
       "VietHoa_Shogun2v1.0.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f",
-      "VietHoa_Shogun2_v1.0.1.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f"
+      "VietHoa_Shogun2_v1.0.1.zip": "7fef8ffb0d0c39bd724dcf9e3064af58fa060f34103f7b970b721e12523deb8f",
+      "VietHoa_Shogun2_v1.0.5.zip": "3a4a47016eaa79b3486a12ec00dedc8b4171c2eb0f579bb05e855edd7f12506d"
     },
     "virustotal": "",
     "github": {
@@ -99,9 +100,24 @@ window.GAMES = [  {
     "downloads": [],
     "changelog": [
       {
+        "version": "1.0.5",
+        "date": "2026-10-13",
+        "notes": "Soát thêm phần chưa chấm lại: thống nhất xưng hô sứ giả (xưng \"ta\", \"bên ta\"/\"bọn ta\", gọi chủ mình \"chúa công ta\"), tooltip nhắc đúng tên nút/thẻ đang hiện trong game (Chiêu mộ tướng, Sửa đổi, Tóm tắt, tên đội hình…), soát 8.558 nhãn/tên ngắn (tên thành tựu, trạng thái sĩ khí, viết hoa tên phe, nhãn bị hiểu sai ngữ cảnh như Mỏ/Thủy lôi, Pháo thủ, Phe ủng hộ). 808 chuỗi sửa, tất cả qua chấm mù (mới thắng 563, hòa 28, thua 37 – câu hòa/thua giữ bản cũ)."
+      },
+      {
+        "version": "1.0.4",
+        "date": "2026-10-13",
+        "notes": "Chấm mù 762 câu sửa của bản soát (bản mới thắng 620, hòa 125, thua 17) – chỉ giữ 620 câu tốt hơn, còn lại trả về bản cũ. Các lỗi đã sửa: ~300 câu sai xưng hô (mô tả/tooltip gọi nhầm \"chúa công\", sứ giả xưng hô lệch thái độ), ~200 câu lệch thuật ngữ, ~80 câu sai nghĩa (đảo khả năng thành chắc chắn, nhầm chủ thể, sai phạm vi hiệu ứng), câu văn máy, phần sót và phần tự thêm. Phần chơi mạng giữ nguyên chữ \"Clan\" (tín vật Clan, tranh đua Clan, bảng xếp hạng Clan…); Crest của hóa thân = \"Huy hiệu mũ\"; thống nhất \"giáo\" cho spear: Thạo Giáo, Tinh Thông Giáo (nhánh học thuật vẫn là \"Đạo Thương\")."
+      },
+      {
+        "version": "1.0.3",
+        "date": "2026-10-13",
+        "notes": "Soát lại toàn bộ câu dài và Bách khoa theo chuẩn dịch mới (bản nội bộ, thay bằng 1.0.4)."
+      },
+      {
         "version": "1.0.2",
         "date": "2026-10-08",
-        "notes": "Sửa 74 nhãn/câu dịch sai nghĩa: nút \"Apply now\" thành \"Áp dụng ngay\"; bảng thống kê trận ghi rõ tướng/tàu/đơn vị địch bị hạ; tăng hàng ngang/hàng dọc của đội hình; \"Tên tẩm lửa\" và \"Hỏa tiễn\" (trước đều là \"tên lửa\"); \"Độ chi tiết\" trong tùy chọn đồ họa; một số nhãn chơi mạng."
+        "notes": "Sửa 74 nhãn/câu dịch sai nghĩa: nút \"Apply now\" thành \"Áp dụng ngay\" (trước ghi nhầm \"Đăng ký ngay\"); bảng thống kê trận ghi rõ tướng/tàu/đơn vị địch bị hạ; \"Increase rank/file\" = tăng hàng ngang/hàng dọc của đội hình; Fire arrows = \"Tên tẩm lửa\", rocket = \"Hỏa tiễn\" (trước đều là \"tên lửa\"); \"Độ chi tiết\" trong tùy chọn đồ họa; một số nhãn chơi mạng (Bắt đầu sau, Tính điểm xếp hạng, Hết mùa giải)."
       },
       {
         "version": "1.0.1",
@@ -132,10 +148,10 @@ window.GAMES = [  {
     "platform": "Steam / Epic / GOG",
     "engine": "",
     "gameVersion": "V5.01",
-    "patchVersion": "1.5.3",
+    "patchVersion": "1.5.4",
     "status": "done",
     "progress": 100,
-    "updated": "2026-10-09",
+    "updated": "2026-10-14",
     "size": "9,6 MB",
     "description": "Bản Việt hóa cho The Witcher 3 bản Remaster, dựa trên bản Việt hóa cộng đồng của Viethoagame và dịch bổ sung phần còn thiếu: giao diện mới của bản Remaster, nhiều nhật ký/thư/sách Blood and Wine, phụ đề video. Xưng hô được soát theo quan hệ nhân vật: Geralt gọi Vesemir là \"thầy\", Ciri gọi Geralt là \"cha\", Yennefer và Triss \"anh – em\", dân thường gọi Geralt là \"anh\", người hầu, trưởng làng, hiệp sĩ Toussaint gọi \"ngài\".",
     "features": [
@@ -162,7 +178,8 @@ window.GAMES = [  {
       "VietHoa_Witcher3_Remasterv1.0.1.zip": "9b66aab01f24cb92213bfe496c7364d5d449c58a93c7b78c44685dd886ad5da4",
       "VietHoa_Witcher3_Remasterv1.0.zip": "bd8e68fb6a544466162d2c7820d4b0e51fcad866af97c7590b680b7a38815138",
       "VietHoa_Witcher3_v1.5.2.zip": "0cf5fbb080fb02b28b01d043e5100435af7872b0b5ae8af6ca2d56900ef926ee",
-      "VietHoa_Witcher3_v1.5.3.zip": "2969fda80e8ec103cd5002b6749975ee3510388a63243bac48e2399c6257f75a"
+      "VietHoa_Witcher3_v1.5.3.zip": "2969fda80e8ec103cd5002b6749975ee3510388a63243bac48e2399c6257f75a",
+      "VietHoa_Witcher3_v1.5.4.zip": "b37624b4c91e331e03bec8fd57ccc70bed7654668f06caaf3558c44172897138"
     },
     "virustotal": "",
     "github": {
@@ -171,6 +188,11 @@ window.GAMES = [  {
     },
     "downloads": [],
     "changelog": [
+      {
+        "version": "1.5.4",
+        "date": "2026-10-10",
+        "notes": "Lời thoại nhắc tới người thứ ba không còn để trơn \"bà/ông/cô/anh\" (dễ tưởng đang gọi người nghe) mà dùng \"bà ấy/ông ấy/cô ấy/anh ấy\" hoặc \"bà ta/hắn\" tùy thái độ – 64 câu; kèm sửa 118 câu dịch sai nghĩa, ngược nghĩa, lỗi chính tả, sót tiếng Anh phát hiện khi đọc lại."
+      },
       {
         "version": "1.5.3",
         "date": "2026-10-09",
