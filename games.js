@@ -38,7 +38,84 @@ window.SITE = {
          Để trống thì web tự vẽ ảnh bìa từ 2 màu trong "colors".
   sample: true = dữ liệu mẫu, XÓA các game mẫu khi đưa game thật vào.
 */
-window.GAMES = [  {
+window.GAMES = [
+  {
+    "id": "late-shift",
+    "title": "Late Shift",
+    "subtitle": "Phim tương tác, Wales Interactive / CtrlMovie",
+    "cover": "assets/covers/late-shift.jpg",
+    "colors": [
+      "#0d1b2a",
+      "#c9a227"
+    ],
+    "genres": [
+      "Phim tương tác",
+      "Tội phạm – trộm cướp",
+      "Nhiều kết thúc"
+    ],
+    "platform": "Windows – Epic (đã thử), Steam/GOG",
+    "engine": "Unity",
+    "gameVersion": "Bản Epic tại ngày 15/10/2026 (v1.0.5)",
+    "patchVersion": "1.0.2",
+    "status": "done",
+    "progress": 100,
+    "updated": "2026-10-15",
+    "size": "0,2 MB",
+    "description": "Bản Việt hóa phụ đề và giao diện cho Late Shift – bộ phim tương tác về Matt, cậu sinh viên bị cuốn vào vụ trộm đấu giá ở London. Toàn bộ thoại có phụ đề tiếng Việt, các nút lựa chọn trong lúc xem phim đều đã dịch. Xưng hô theo đúng quan hệ nhân vật: Matt và May-Ling \"tôi – cô / tôi – anh\", ông trùm Parr \"ta – cậu\", xã hội đen \"tao – mày\", Matt khi bị dồn đến đường cùng cũng đổi giọng.",
+    "features": [
+      "Phụ đề toàn bộ phim: mọi nhánh truyện và cả 7 kết thúc",
+      "Các nút lựa chọn trong lúc xem phim",
+      "Giao diện: menu, cài đặt, tên chương, màn hình \"Lựa chọn của bạn\"",
+      "Tên và mô tả thành tựu",
+      "Xưng hô soát theo quan hệ nhân vật",
+      "Font sẵn của game hiện đủ dấu, không cần vá"
+    ],
+    "limits": [
+      "Lồng tiếng là giọng diễn viên tiếng Anh (phụ đề đã dịch).",
+      "Chữ xuất hiện trong video (biển hiệu, màn hình điện thoại…) giữ nguyên.",
+      "Tên riêng (Matt, May-Ling, Parr, nhà Tchoi, Hainsworth's…) giữ nguyên.",
+      "Tiếng Việt thay vào vị trí ngôn ngữ Danish trong danh sách ngôn ngữ.",
+      "Mới chạy thử trên bản Epic; bản Steam/GOG bộ cài vẫn nhận nhưng chưa kiểm tra thực tế."
+    ],
+    "install": [
+      "Thoát hẳn game (và launcher nếu đang cập nhật).",
+      "Giải nén, chạy CaiVietHoa_LateShift.exe (bộ cài tự tìm thư mục game; không thấy thì bấm \"Đổi…\" chọn thư mục có LateShift.exe).",
+      "Bấm CÀI VIỆT HÓA, đợi 100%.",
+      "Vào game: Settings → Language → Tiếng Việt, bật Subtitles.",
+      "Muốn gỡ: chạy lại bộ cài → \"Gỡ Việt hóa\"."
+    ],
+    "installNotes": [],
+    "checksums": {
+      "VietHoa_LateShift_v1.0.2.zip": "3408459abd8666dd1381be826fbb7ff775f4689d7b2b74cc4562f19de28166e9"
+    },
+    "virustotal": "",
+    "github": {
+      "repo": "nguyenhoangnhviethoa/Viet-hoa-Late-Shift",
+      "tag": "latest"
+    },
+    "downloads": [],
+    "changelog": [
+      {
+        "version": "1.0.2",
+        "date": "2026-10-15",
+        "notes": "Soát lại 442 nhãn giao diện, sửa 113 nhãn: tên ngôn ngữ hiện \"Tiếng Việt\", nút lựa chọn đúng ngữ cảnh (\"Squeal\" = Khai ra, \"Push it\" = Đòi thêm, \"Remove oxygen\" = Rút ống thở, \"Hold still\" = Đứng yên, \"High five\" = Đập tay…), thống nhất \"Hang sư tử\", Ep11 gọi đối thủ là \"hắn\", tên thành tựu viết thường kiểu Việt và bỏ trùng tên; bộ cài ghi số phiên bản, báo rõ khi game khác phiên bản."
+      },
+      {
+        "version": "1.0.1",
+        "date": "2026-10-06",
+        "notes": "Phát hành lần đầu – phụ đề 3.376 câu, giao diện, bộ cài một nút bấm (có Gỡ), ảnh nền lấy từ game."
+      }
+    ],
+    "screenshots": [
+      "assets/shots/late-shift-1.jpg",
+      "assets/shots/late-shift-2.jpg",
+      "assets/shots/late-shift-3.jpg",
+      "assets/shots/late-shift-4.jpg",
+      "assets/shots/late-shift-5.jpg"
+    ],
+    "hero": "assets/shots/late-shift-2.jpg"
+  },
+  {
     "id": "total-war-shogun-2",
     "title": "Total War: SHOGUN 2",
     "subtitle": "Kèm Rise of the Samurai và Fall of the Samurai",
